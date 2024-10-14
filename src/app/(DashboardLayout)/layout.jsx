@@ -36,45 +36,24 @@ export default function RootLayout({ children }) {
       {/* Sidebar */}
       {/* ------------------------------------------- */}
 
-      {customizer.isHorizontal ? "" : <Sidebar />}
+      {/* {customizer.isHorizontal ? "" : <Sidebar />} */}
 
       {/* ------------------------------------------- */}
       {/* Main Wrapper */}
       {/* ------------------------------------------- */}
       <PageWrapper
         className="page-wrapper"
-        sx={{
-          ...(customizer.isCollapse && {
-            [theme.breakpoints.up("lg")]: {
-              ml: `${customizer.MiniSidebarWidth}px`,
-            },
-          }),
-        }}
+        // sx={{
+        //   ...(customizer.isCollapse && {
+        //     [theme.breakpoints.up("lg")]: {
+        //       ml: `${customizer.MiniSidebarWidth}px`,
+        //     },
+        //   }),
+        // }}
       >
-        {/* ------------------------------------------- */}
-        {/* Header */}
-        {/* ------------------------------------------- */}
-        {customizer.isHorizontal ? <HorizontalHeader /> : <Header />}
-        {/* PageContent */}
-        {customizer.isHorizontal ? <Navigation /> : ""}
-        <Container
-          sx={{
-            maxWidth: customizer.isLayout === "boxed" ? "lg" : "100%!important",
-          }}
-        >
-          {/* ------------------------------------------- */}
-          {/* PageContent */}
-          {/* ------------------------------------------- */}
-
-          <Box sx={{ minHeight: "calc(100vh - 170px)" }}>
+        <Box sx={{ minHeight: "calc(100vh - 170px)" }}>
             {children}
           </Box>
-
-          {/* ------------------------------------------- */}
-          {/* End Page */}
-          {/* ------------------------------------------- */}
-        </Container>
-        <Customizer />
       </PageWrapper>
     </MainWrapper>
   );
