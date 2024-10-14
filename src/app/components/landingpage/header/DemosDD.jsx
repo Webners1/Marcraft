@@ -111,7 +111,7 @@ const DemosDD = () => {
                     width: '100%',
                     height: '100%',
                   }}
-                  height={100} width={100}
+                  height={500} width={500}
                 />
                 <Button
                   variant="contained"
@@ -152,6 +152,8 @@ const DemosDD = () => {
                     width: '100%',
                     height: '100%',
                   }}
+                  height={500} width={500}
+
                 />
                 <NextLink href={app.link}>
                   <Button variant="contained" color="primary" size="small">
