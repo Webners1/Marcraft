@@ -33,7 +33,7 @@ const BannerContent = () => {
           <Typography color={'secondary'}>
             <IconRocket size={'21'} />
           </Typography>{' '}
-          Kick start your project with
+          Kick start your Web3 Marketing
         </Typography>
 
         <Typography
@@ -48,11 +48,11 @@ const BannerContent = () => {
             },
           }}
         >
-          Most powerful &{' '}
+          First Ever <br />
           <Typography component={'span'} variant="inherit" color={'primary'}>
-            Developer friendly
+            WEB3 INFLUINCERS
           </Typography>{' '}
-          NextJs dashboard
+          Marketplace
         </Typography>
       </motion.div>
       <Box pt={4} pb={3}>
@@ -67,8 +67,7 @@ const BannerContent = () => {
           }}
         >
           <Typography variant="h5" fontWeight={300}>
-            Modernize comes with light & dark color skins, well designed dashboards, applications
-            and pages.
+            Infinder Marketplace helps you choose the perfect Marketing partner for your next Web3 Product.
           </Typography>
         </motion.div>
       </Box>
@@ -88,7 +87,7 @@ const BannerContent = () => {
           </StyledButton>
 
           <StyledButton variant="outlined" href="#demos">
-            Live Preview
+            Discover
           </StyledButton>
         </Stack>
       </motion.div>
