@@ -8,8 +8,8 @@ import { styled } from '@mui/material/styles';
 import BannerContent from './BannerContent';
 import Image from 'next/image';
 
-import bannerImg1 from "/images/landingpage/bannerimg1.svg";
-import bannerImg2 from "/images/landingpage/bannerimg2.svg";
+// import bannerImg1 from "images/landingpage/bannerimg1.svg";
+// import bannerImg2 from "images/landingpage/bannerimg2.svg";
 
 const Banner = () => {
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
@@ -61,18 +61,18 @@ const Banner = () => {
                 <Stack direction={'row'}>
                   <Box>
                     <SliderBox>
-                      <Image src={bannerImg1} alt="banner" priority />
+                      <Image src={`/images/landingpage/bannerimg1.svg`} height={100} width={100} alt="banner" priority />
                     </SliderBox>
                     <SliderBox>
-                      <Image src={bannerImg1} alt="banner" priority />
+                      <Image src={`/images/landingpage/bannerimg1.svg`} height={100} width={100} alt="banner" priority />
                     </SliderBox>
                   </Box>
                   <Box>
                     <SliderBox2>
-                      <Image src={bannerImg2} alt="banner" priority />
+                      <Image src={`/images/landingpage/bannerimg2.svg`} height={100} width={100} alt="banner" priority />
                     </SliderBox2>
                     <SliderBox2>
-                      <Image src={bannerImg2} alt="banner" priority />
+                      <Image src={`/images/landingpage/bannerimg2.svg`} height={100} width={100} alt="banner" priority />
                     </SliderBox2>
                   </Box>
                 </Stack>

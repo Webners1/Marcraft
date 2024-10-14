@@ -10,6 +10,28 @@ import DemoTitle from './DemoTitle';
 import Image from 'next/image';
 
 
+const demos = [
+  {
+    link: 'https://modernize-nextjs.adminmart.com/dashboards/modern',
+    img: '/images/landingpage/demos/demo-main.jpg',
+    title: 'Main',
+  },
+  {
+    link: 'https://modernize-nextjs-dark.vercel.app/dashboards/ecommerce',
+    img: '/images/landingpage/demos/demo-main.jpg',
+    title: 'Dark',
+  },
+  {
+    link: 'https://modernize-nextjs-horizontal.vercel.app/dashboards/modern',
+    img: '/images/landingpage/demos/demo-main.jpg',
+    title: 'Horizontal',
+  },
+  {
+    link: '/',
+    img: '/images/landingpage/demos/demo-main.jpg',
+    title: 'RTL-[included with package]',
+  },
+];
 
 
 const StyledBox = styled(Box)(() => ({
@@ -74,6 +96,9 @@ const DemoSlider = () => {
                         width: '100%',
                         height: '100%',
                       }}
+
+                width={"100"}
+                height={"100"}
                     />
                     <Button
                       variant="contained"
@@ -102,46 +127,7 @@ const DemoSlider = () => {
         <Box mb={2} mt={5} textAlign="center">
           <Chip label="Apps" color="primary" />
         </Box>
-        {/* apps */}
-        <Box>
-          <Grid container mt={2} spacing={3}>
-            {apps.map((app, index) => (
-              <Grid item xs={12} lg={3} key={index}>
-                <Box>
-                  <StyledBox>
-                    <Image
-                      src={app.img}
-                      alt="app"
-                      style={{
-                        borderRadius: '8px',
-                        width: '100%',
-                        height: '100%',
-                      }}
-                    />
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="small"
-                      href={app.link}
-                      target="_blank"
-                    >
-                      Live Preview
-                    </Button>
-                  </StyledBox>
-                  <Typography
-                    variant="h6"
-                    color="textPrimary"
-                    textAlign="center"
-                    fontWeight={500}
-                    mt={2}
-                  >
-                    {app.title}
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+        
       </Container>
     </Box>
   );
