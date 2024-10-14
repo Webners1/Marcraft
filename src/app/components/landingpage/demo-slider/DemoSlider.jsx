@@ -14,22 +14,27 @@ const demos = [
   {
     link: 'https://modernize-nextjs.adminmart.com/dashboards/modern',
     img: '/images/landingpage/demos/demo-main.jpg',
-    title: 'Main',
+    btnText: "Explore",
+    title: 'DeFi',
   },
   {
     link: 'https://modernize-nextjs-dark.vercel.app/dashboards/ecommerce',
     img: '/images/landingpage/demos/demo-main.jpg',
-    title: 'Dark',
+    btnText: "Explore",
+    title: 'GameFi',
+
   },
   {
     link: 'https://modernize-nextjs-horizontal.vercel.app/dashboards/modern',
     img: '/images/landingpage/demos/demo-main.jpg',
-    title: 'Horizontal',
+    btnText: "Explore",
+    title: 'Web3 Mini-Apps',
   },
   {
     link: '/',
     img: '/images/landingpage/demos/demo-main.jpg',
-    title: 'RTL-[included with package]',
+    btnText: "Confused?",
+    title: 'Explore All',
   },
 ];
 
@@ -97,17 +102,25 @@ const DemoSlider = () => {
                         height: '100%',
                       }}
 
-                width={"100"}
-                height={"100"}
+                      width={"100"}
+                      height={"100"}
                     />
-                    <Button
+                    <Button 
                       variant="contained"
                       color="primary"
-                      size="small"
+                      // size="medium"
                       href={demo.link}
                       target="_blank"
                     >
-                      Live Preview
+                      <Typography style={{display: "flex", justifyContent: "center",alignItems: "center"}}
+                        variant="p"
+                        color="textPrimary"
+                        // textAlign="center"
+                        fontWeight={500}
+                        margin={0}
+                      >
+                        {demo.btnText}
+                      </Typography>
                     </Button>
                   </StyledBox>
                   <Typography
@@ -124,10 +137,10 @@ const DemoSlider = () => {
             ))}
           </Grid>
         </Box>
-        <Box mb={2} mt={5} textAlign="center">
+        {/* <Box mb={2} mt={5} textAlign="center">
           <Chip label="Apps" color="primary" />
-        </Box>
-        
+        </Box> */}
+
       </Container>
     </Box>
   );

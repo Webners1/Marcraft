@@ -26,7 +26,7 @@ const DemoTitle = () => {
               </AvatarGroup>
               <Typography variant="h6">52,589+</Typography>
               <Typography variant="h6" color="textSecondary">
-                developers & agencies using our templates
+                Web3 Entrepreneurs & Influincers use Infinder
               </Typography>
             </Stack>
             <Typography
@@ -44,7 +44,7 @@ const DemoTitle = () => {
                 },
               }}
             >
-              Production Ready & Developer Friendly Material UI NextJs Admin Template
+              Enjoy a Hassle Free process of finding your Dream Marketing Partner 
             </Typography>
           </>
         </AnimationFadeIn>
