@@ -12,10 +12,15 @@ import * as locales from '@mui/material/locale';
 
 export const BuildTheme = (config) => {
   const themeOptions = LightThemeColors.find((theme) => theme.name === config.theme);
+  // const themeOptions = LightThemeColors.find((theme) => theme.name === "PURPLE_THEME");
+  // const darkthemeOptions = DarkThemeColors.find((theme) => theme.name === "PURPLE_THEME");
   const darkthemeOptions = DarkThemeColors.find((theme) => theme.name === config.theme);
   const customizer = useSelector((state) => state.customizer);
-  const defaultTheme = customizer.activeMode === 'dark' ? baseDarkTheme : baselightTheme;
-  const defaultShadow = customizer.activeMode === 'dark' ? darkshadows : shadows;
+  // const defaultTheme = customizer.activeMode === 'dark' ? baseDarkTheme : baselightTheme;
+  const defaultTheme = baseDarkTheme;
+
+  // const defaultShadow = customizer.activeMode === 'dark' ? darkshadows : shadows;
+  const defaultShadow = darkshadows;
   const themeSelect = customizer.activeMode === 'dark' ? darkthemeOptions : themeOptions;
   const baseMode = {
     palette: {
