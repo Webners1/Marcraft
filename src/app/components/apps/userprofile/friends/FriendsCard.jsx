@@ -104,7 +104,11 @@ const FriendsCard = () => {
                     />
                     <Box textAlign={'center'}>
                       <Typography variant="h5">{profile.name}</Typography>
-                      <Typography variant="caption">{profile.role}</Typography>
+                      <Box textAlign={'center'} display={'flex'} gap={'1rem'} margin={'0.5rem 0rem'}>
+                        <Typography fontSize={'12.5px'} backgroundColor={"green"} variant="semi-bold" padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >DeFi</Typography>
+                        <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'orange'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >GameFi</Typography>
+                        <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'teal'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >Mini-Apps</Typography>
+                      </Box>
                     </Box>
                   </Stack>
                 </CardContent>
