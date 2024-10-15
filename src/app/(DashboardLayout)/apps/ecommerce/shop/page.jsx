@@ -23,7 +23,7 @@ const Ecommerce = () => {
   return (
     <PageContainer title="explore" description="">
       {/* breadcrumb */}
-      <Breadcrumb title="Explore Influincers" items={BCrumb} />
+      <Breadcrumb title="Explore" items={BCrumb} />
       <AppCard>
         {/* ------------------------------------------- */}
         {/* Left part */}
