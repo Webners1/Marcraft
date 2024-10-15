@@ -6,6 +6,7 @@ import PageContainer from '@/app/components/container/PageContainer';
 import ProductList from '@/app/components/apps/ecommerce/productGrid/ProductList';
 import ProductSidebar from '@/app/components/apps/ecommerce/productGrid/ProductSidebar';
 import AppCard from '@/app/components/shared/AppCard';
+import FriendsCard from '@/app/components/apps/userprofile/friends/FriendsCard';
 
 const BCrumb = [
   {
@@ -20,9 +21,9 @@ const Ecommerce = () => {
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(true);
 
   return (
-    <PageContainer title="Shop" description="this is Shop">
+    <PageContainer title="explore" description="">
       {/* breadcrumb */}
-      <Breadcrumb title="Ecom-Shop" items={BCrumb} />
+      <Breadcrumb title="Explore Influincers" items={BCrumb} />
       <AppCard>
         {/* ------------------------------------------- */}
         {/* Left part */}
@@ -35,7 +36,7 @@ const Ecommerce = () => {
         {/* Right part */}
         {/* ------------------------------------------- */}
         <Box p={3} flexGrow={1}>
-          <ProductList onClick={() => setMobileSidebarOpen(!isMobileSidebarOpen)} />
+          <FriendsCard />
         </Box>
       </AppCard>
     </PageContainer>
