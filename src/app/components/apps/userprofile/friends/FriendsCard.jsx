@@ -1,12 +1,13 @@
 import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
+import { Grid, Rating, Box, Stack } from '@mui/material';
+// import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
+// import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import Stack from '@mui/material/Stack';
+// import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import React, { useEffect } from 'react';
@@ -20,6 +21,7 @@ import {
   IconBrandTwitter,
   IconSearch,
 } from '@tabler/icons-react';
+import MuiRating from '@/app/(DashboardLayout)/ui-components/rating/page';
 
 const SocialIcons = [
   {
@@ -104,19 +106,24 @@ const FriendsCard = () => {
                     />
                     <Box textAlign={'center'}>
                       <Typography variant="h5">{profile.name}</Typography>
-                      <Box textAlign={'center'} display={'flex'} gap={'1rem'} margin={'0.5rem 0rem'}>
-                        <Typography fontSize={'12.5px'} backgroundColor={"green"} variant="semi-bold" padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >DeFi</Typography>
-                        <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'orange'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >GameFi</Typography>
-                        <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'teal'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >Mini-Apps</Typography>
-                      </Box>
+                      {SocialIcons.map((sicon) => {
+                        return <IconButton key={sicon.name}>{sicon.icon}</IconButton>;
+                      })}
+
                     </Box>
                   </Stack>
                 </CardContent>
                 <Divider />
                 <Box p={2} py={1} textAlign={'center'} sx={{ backgroundColor: 'grey.100' }}>
-                  {SocialIcons.map((sicon) => {
-                    return <IconButton key={sicon.name}>{sicon.icon}</IconButton>;
-                  })}
+                  <Box display={'flex'}>
+                    <Rating  name="read-only" value={5} />
+                  </Box>
+                  <Box textAlign={'center'} display={"flex"} justifyContent={'left'} gap={'1rem'} margin={'0.5rem'}>
+                    <Typography fontSize={'12.5px'} backgroundColor={"green"} variant="semi-bold" marginLeft={'-0.5rem'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >DeFi</Typography>
+                    <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'orange'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >GameFi</Typography>
+                    <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'teal'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >Mini-Apps</Typography>
+                  </Box>
+
                 </Box>
               </BlankCard>
             </Grid>
