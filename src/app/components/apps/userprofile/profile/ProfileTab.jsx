@@ -23,11 +23,11 @@ const ProfileTab = () => {
       icon: <IconHeart size="20" />,
       to: '/apps/user-profile/followers',
     },
-    {
-      label: 'Gallery',
-      icon: <IconPhoto size="20" />,
-      to: '/apps/user-profile/gallery',
-    },
+    // {
+    //   label: 'Gallery',
+    //   icon: <IconPhoto size="20" />,
+    //   to: '/apps/user-profile/gallery',
+    // },
   ];
 
   return (

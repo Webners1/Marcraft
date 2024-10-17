@@ -123,11 +123,11 @@ const FriendsCard = () => {
                       })}
                     </Box>
                   </Box>
-                  <Box textAlign={'center'} display={"flex"} justifyContent={'space-around'} gap={'1rem'} margin={'0.5rem'}>
+                  <Box textAlign={'center'} display={"flex"} justifyContent={'space-around'} gap={'1rem'} margin={'0.5rem 0rem'}>
                     <Typography fontSize={'12.5px'} backgroundColor={"green"} variant="semi-bold"  padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >DeFi</Typography>
                     <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'orange'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >GameFi</Typography>
                     <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'teal'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >Mini-Apps</Typography>
-                    {/* <Typography fontSize={'15px'} variant="semi-bold" backgroundColor={'teal'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >...</Typography> */}
+                    <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'teal'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >More...</Typography>
                   </Box>
 
                 </Box>

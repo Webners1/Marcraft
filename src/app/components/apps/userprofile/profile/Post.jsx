@@ -15,9 +15,9 @@ const Post = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item sm={12}>
+      {/* <Grid item sm={12}>
         <PostTextBox />
-      </Grid>
+      </Grid> */}
       {getPosts.map((posts) => {
         return (
           <Grid item sm={12} key={posts.id}>
