@@ -22,6 +22,7 @@ import {
   IconSearch,
 } from '@tabler/icons-react';
 import MuiRating from '@/app/(DashboardLayout)/ui-components/rating/page';
+import InlineItemCard from '@/app/components/shared/InlineItemCard';
 
 const SocialIcons = [
   {
@@ -100,7 +101,7 @@ const FriendsCard = () => {
                 <CardContent>
                   <Stack direction={'column'} gap={2} alignItems="center">
                     <Avatar
-                      alt="Remy Sharp"
+                      alt="Remy Sharp" s
                       src={profile.avatar}
                       sx={{ width: '80px', height: '80px' }}
                     />
@@ -123,12 +124,26 @@ const FriendsCard = () => {
                       })}
                     </Box>
                   </Box>
-                  <Box textAlign={'center'} display={"flex"} justifyContent={'space-around'} gap={'1rem'} margin={'0.5rem 0rem'}>
+                  <InlineItemCard>
+                    {/* <Chip label="Default Filled" /> */}
+                    {/* <Chip avatar={<Avatar>M</Avatar>} label="Default Deletable" onDelete={handleDelete} /> */}
+                    <Chip variant="outlined" label="DeFi" color="primary" />
+                    {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-4.jpg"} />} label="Primary Deletable" color="primary" onDelete={handleDelete} /> */}
+                    <Chip variant="outlined" label="GameFi" color="secondary" />
+                    {/* <Chip icon={<IconMoodHappy />} label="Secondary Deletable" color="secondary" onDelete={handleDelete} /> */}
+                    <Chip variant="outlined" label="Mini-Apps" color="success" />
+                    {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-2.jpg"} />} label="Default Deletable" color="success" onDelete={handleDelete} /> */}
+                    <Chip variant="outlined" label="More..." color="warning" />
+                    {/* <Chip icon={<IconMoodHappy />} label="Default Deletable" color="warning" onDelete={handleDelete} /> */}
+                    {/* <Chip label="Default Filled" color="error" /> */}
+                    {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-3.jpg"} />} label="Default Deletable" color="error" onDelete={handleDelete} /> */}
+                  </InlineItemCard>
+                  {/* <Box textAlign={'center'} display={"flex"} justifyContent={'space-around'} gap={'1rem'} margin={'0.5rem 0rem'}>
                     <Typography fontSize={'12.5px'} backgroundColor={"green"} variant="semi-bold"  padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >DeFi</Typography>
                     <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'orange'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >GameFi</Typography>
                     <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'teal'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >Mini-Apps</Typography>
                     <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'teal'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >More...</Typography>
-                  </Box>
+                  </Box> */}
 
                 </Box>
               </BlankCard>
