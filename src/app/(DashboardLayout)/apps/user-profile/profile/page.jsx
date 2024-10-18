@@ -11,7 +11,8 @@ import {
   Avatar,
   Typography,
   Chip,
-  Grid
+  Grid,
+  Box
 } from '@mui/material';
 import {
   IconCheck,
@@ -60,7 +61,48 @@ const UserProfile = () => {
         </Grid>
         {/* Posts Card */}
         <Grid item sm={12} lg={8} xs={12}>
-          {/* <Post /> */}
+          <Box marginBottom={'1rem'}>
+            <ChildCard>
+              <Typography fontWeight={600} variant="h4" mb={2}>
+                Woh walay tags
+              </Typography>
+              <InlineItemCard>
+                <Chip avatar={<Avatar>M</Avatar>} label="DeFi" color="primary" />
+                {/* <Chip avatar={<Avatar>M</Avatar>} label="Default Deletable" onDelete={handleDelete} /> */}
+                <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-4.jpg"} />} label="GameFi" color="secondary" />
+                {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-4.jpg"} />} label="Primary Deletable" color="primary" onDelete={handleDelete} /> */}
+                <Chip icon={<IconMoodHappy />} label="Mini-Apps" color="success" />
+                {/* <Chip icon={<IconMoodHappy />} label="Secondary Deletable" color="secondary" onDelete={handleDelete} /> */}
+                {/* <Chip variant="outlined" avatar={<Avatar alt="Natacha" src={"/images/profile/user-2.jpg"} />} label="Default Filled" color="success" /> */}
+                {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-2.jpg"} />} label="Default Deletable" color="success" onDelete={handleDelete} /> */}
+                <Chip icon={<IconMoodHappy />} label="Default Filled" color="warning" />
+                {/* <Chip icon={<IconMoodHappy />} label="Default Deletable" color="warning" onDelete={handleDelete} /> */}
+                <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-3.jpg"} />} label="Default Filled" color="error" />
+                {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-3.jpg"} />} label="Default Deletable" color="error" onDelete={handleDelete} /> */}
+              </InlineItemCard>
+            </ChildCard>
+          </Box>
+          <Box marginBottom={'1rem'}>
+            <ChildCard>
+              <Typography fontWeight={600} variant="h4" mb={2}>
+                Woh walay tags
+              </Typography>
+              <InlineItemCard>
+                <Chip avatar={<Avatar>M</Avatar>} label="DeFi" color="primary" />
+                {/* <Chip avatar={<Avatar>M</Avatar>} label="Default Deletable" onDelete={handleDelete} /> */}
+                <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-4.jpg"} />} label="GameFi" color="secondary" />
+                {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-4.jpg"} />} label="Primary Deletable" color="primary" onDelete={handleDelete} /> */}
+                <Chip icon={<IconMoodHappy />} label="Mini-Apps" color="success" />
+                {/* <Chip icon={<IconMoodHappy />} label="Secondary Deletable" color="secondary" onDelete={handleDelete} /> */}
+                {/* <Chip variant="outlined" avatar={<Avatar alt="Natacha" src={"/images/profile/user-2.jpg"} />} label="Default Filled" color="success" /> */}
+                {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-2.jpg"} />} label="Default Deletable" color="success" onDelete={handleDelete} /> */}
+                <Chip icon={<IconMoodHappy />} label="Default Filled" color="warning" />
+                {/* <Chip icon={<IconMoodHappy />} label="Default Deletable" color="warning" onDelete={handleDelete} /> */}
+                <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-3.jpg"} />} label="Default Filled" color="error" />
+                {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-3.jpg"} />} label="Default Deletable" color="error" onDelete={handleDelete} /> */}
+              </InlineItemCard>
+            </ChildCard>
+          </Box>
         </Grid>
       </Grid>
     </PageContainer>
