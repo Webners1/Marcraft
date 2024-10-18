@@ -38,13 +38,13 @@ const UserProfile = () => {
                   Influincer Type Tags
                 </Typography>
                 <InlineItemCard>
-                  <Chip variant="outlined" avatar={<Avatar>M</Avatar>} label="Default Filled" />
+                  <Chip variant="outlined" avatar={<Avatar>M</Avatar>} label="DeFi" color="primary" />
                   {/* <Chip avatar={<Avatar>M</Avatar>} label="Default Deletable" onDelete={handleDelete} /> */}
-                  <Chip variant="outlined" avatar={<Avatar alt="Natacha" src={"/images/profile/user-4.jpg"} />} label="Primary Filled" color="primary" />
+                  <Chip variant="outlined" avatar={<Avatar alt="Natacha" src={"/images/profile/user-4.jpg"} />} label="GameFi" color="secondary" />
                   {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-4.jpg"} />} label="Primary Deletable" color="primary" onDelete={handleDelete} /> */}
-                  <Chip variant="outlined" icon={<IconMoodHappy />} label="Secondary Filled" color="secondary" />
+                  <Chip variant="outlined" icon={<IconMoodHappy />} label="Mini-Apps" color="success" />
                   {/* <Chip icon={<IconMoodHappy />} label="Secondary Deletable" color="secondary" onDelete={handleDelete} /> */}
-                  <Chip variant="outlined" avatar={<Avatar alt="Natacha" src={"/images/profile/user-2.jpg"} />} label="Default Filled" color="success" />
+                  {/* <Chip variant="outlined" avatar={<Avatar alt="Natacha" src={"/images/profile/user-2.jpg"} />} label="Default Filled" color="success" /> */}
                   {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-2.jpg"} />} label="Default Deletable" color="success" onDelete={handleDelete} /> */}
                   <Chip variant="outlined" icon={<IconMoodHappy />} label="Default Filled" color="warning" />
                   {/* <Chip icon={<IconMoodHappy />} label="Default Deletable" color="warning" onDelete={handleDelete} /> */}
