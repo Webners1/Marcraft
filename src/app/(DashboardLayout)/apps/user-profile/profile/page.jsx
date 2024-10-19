@@ -210,7 +210,7 @@ const UserProfile = () => {
               />
               <Grid item sm={12} lg={6} xs={12}>
                 <Typography fontWeight={600} variant="h5" mb={2}>
-                  Graphics-Textual Ratio
+                  Graphics-Text Ratio
                 </Typography>
                 <Chart options={optionspiechart} series={seriespiechart} type="pie" height="300px" width={"100%"} />
               </Grid>
