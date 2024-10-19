@@ -167,7 +167,7 @@ const ProfileBanner = () => {
                 <IconBrandYoutube size="18" />
               </Fab>
               <Button color="primary" variant="contained">
-                Hire
+                Check Plans
               </Button>
             </Stack>
           </Grid>

@@ -21,7 +21,7 @@ const ProfileTab = () => {
     {
       label: 'Followers',
       icon: <IconHeart size="20" />,
-      to: '/apps/user-profile/followers',
+      to: '/pricing',
     },
     // {
     //   label: 'Gallery',

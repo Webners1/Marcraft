@@ -40,7 +40,7 @@ const pricing = [
         monthlyplan: 'Free',
         avatar: '/images/backgrounds/silver.png',
         badge: false,
-        btntext: 'Choose Silver',
+        btntext: 'Hire',
         rules: [
             {
                 limit: true,
@@ -70,7 +70,7 @@ const pricing = [
         monthlyplan: 10.99,
         avatar: '/images/backgrounds/bronze.png',
         badge: true,
-        btntext: 'Choose Bronze',
+        btntext: 'Hire',
         rules: [
             {
                 limit: true,
@@ -100,7 +100,7 @@ const pricing = [
         monthlyplan: 22.99,
         avatar: '/images/backgrounds/gold.png',
         badge: false,
-        btntext: 'Choose Gold',
+        btntext: 'Hire',
         rules: [
             {
                 limit: true,
