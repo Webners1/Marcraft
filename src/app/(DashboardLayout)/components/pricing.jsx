@@ -126,7 +126,7 @@ const pricing = [
   },
 ];
 
-const Pricing = () => {
+const PricingPage = () => {
   const [show, setShow] = React.useState(false);
 
   const yearlyPrice = (a, b) => a * b;
@@ -268,4 +268,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default PricingPage;
