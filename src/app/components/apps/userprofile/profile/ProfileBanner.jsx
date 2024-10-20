@@ -173,7 +173,7 @@ const ProfileBanner = () => {
           </Grid>
         </Grid>
         {/**TabbingPart**/}
-        <ProfileTab />
+        {/* <ProfileTab /> */}
       </BlankCard>
     </>
   );
