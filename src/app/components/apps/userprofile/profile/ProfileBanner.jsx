@@ -16,7 +16,6 @@ import {
   IconUserCheck,
   IconUserCircle,
 } from '@tabler/icons-react';
-import ProfileTab from './ProfileTab';
 import BlankCard from '../../../shared/BlankCard';
 import React from 'react';
 
