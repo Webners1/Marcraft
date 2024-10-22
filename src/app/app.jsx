@@ -11,6 +11,7 @@ import "@/app/api/index";
 
 // Import FirebaseProvider to wrap the app
 import { FirebaseProvider } from "./firebase";
+import { RainbowKitCustomProvider } from './web3';
 
 const MyApp = ({ children }) => {
     const theme = ThemeSettings();
@@ -23,7 +24,9 @@ const MyApp = ({ children }) => {
                     <RTL direction={customizer.activeDir}>
                         <CssBaseline />
                         <FirebaseProvider>
-                            {children}
+                            <RainbowKitCustomProvider >
+                                {children}
+                            </RainbowKitCustomProvider>
                         </FirebaseProvider>
                     </RTL>
                 </ThemeProvider>
