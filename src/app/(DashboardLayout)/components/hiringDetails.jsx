@@ -9,6 +9,7 @@ import {
 import PageContainer from '@/app/components/container/PageContainer';
 import styles from "./pricing.module.css"
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount } from 'wagmi';
 
 import './Quill.css';
 
@@ -26,6 +27,7 @@ const ReactQuill = dynamic(
 );
 
 export default function HiringDetails() {
+    const { isConnected } = useAccount();
 
     const [title, setTitle] = React.useState("")
     const [price, setPrice] = React.useState("")
@@ -100,8 +102,13 @@ export default function HiringDetails() {
                             required
                         />
                     </div>
-                    <button type="submit" className={styles.button}>Hire</button>
-                    <ConnectButton />
+                    {
+                        isConnected
+                            ?
+                            <button type="submit" className={styles.button}>Hire</button>
+                            :
+                            <ConnectButton />
+                    }
                 </form>
             </div>
         </PageContainer >
