@@ -162,8 +162,8 @@ const ProfileBanner = ({ name, job, avatar, coverImage, posts, followers, follow
                 <IconBrandYoutube size="18" />
               </Fab>
             )}
-            <Button color="primary" variant="contained">
-              Check Plans
+            <Button href='/hiringForm' color="primary" variant="contained">
+              Hiring?
             </Button>
           </Stack>
         </Grid>

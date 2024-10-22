@@ -1,19 +1,19 @@
 import React from 'react';
 import PageContainer from "@/app/components/container/PageContainer";
-import PricingPage from "../components/pricing";
+import HiringDetails from "../components/hiringDetails";
 import LpHeader from "@/app/components/landingpage/header/Header";
 import Footer from "@/app/components/landingpage/footer/Footer";
 
-function Pricing() {
+function HiringFormPage() {
 
   return (
-    <PageContainer title="Infinder" description="A Marketplace for Web3 Influincers">
+    <PageContainer title="Marcraft" description="A Marketplace for Web3 Influincers">
       <LpHeader />
-      <PricingPage />
+      <HiringDetails />
       <Footer />
     </PageContainer>
 
   );
 };
 
-export default Pricing;
+export default HiringFormPage;
