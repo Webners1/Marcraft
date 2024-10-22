@@ -18,7 +18,7 @@ const demos = [
     title: 'DeFi',
   },
   {
-    link: 'https://modernize-nextjs-dark.vercel.app/dashboards/ecommerce',
+    link: 'https://modernize-nextjs-dark.vercel.app/dashboards/influencer',
     img: '/images/landingpage/demos/demo-main.jpg',
     btnText: "Explore",
     title: 'GameFi',

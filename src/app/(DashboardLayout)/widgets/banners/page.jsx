@@ -2,7 +2,7 @@
 import { Grid } from '@mui/material';
 import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import PageContainer from '@/app/components/container/PageContainer';
-import WelcomeCard from '@/app/components/dashboards/ecommerce/WelcomeCard';
+import WelcomeCard from '@/app/components/dashboards/influencer/WelcomeCard';
 import Banner1 from '@/app/components/widgets/banners/Banner1';
 import Banner2 from '@/app/components/widgets/banners/Banner2';
 import Banner3 from '@/app/components/widgets/banners/Banner3';

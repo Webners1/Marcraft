@@ -3,13 +3,13 @@ import { Grid } from '@mui/material';
 import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import PageContainer from '@/app/components/container/PageContainer';
 
-import PaymentGateways from '@/app/components/dashboards/ecommerce/PaymentGateways';
-import RecentTransactions from '@/app/components/dashboards/ecommerce/RecentTransactions';
+import PaymentGateways from '@/app/components/dashboards/influencer/PaymentGateways';
+import RecentTransactions from '@/app/components/dashboards/influencer/RecentTransactions';
 import TopCards from '@/app/components/dashboards/modern/TopCards';
 import UpcomingAcitivity from '@/app/components/widgets/cards/UpcomingActivity';
 import ComplexCard from '@/app/components/widgets/cards/ComplexCard';
 import MusicCard from '@/app/components/widgets/cards/MusicCard';
-import EcommerceCard from '@/app/components/widgets/cards/EcommerceCard';
+import EcommerceCard from '@/app/components/widgets/cards/influencerCard';
 import FollowerCard from '@/app/components/widgets/cards/FollowerCard';
 import FriendCard from '@/app/components/widgets/cards/FriendCard';
 import ProfileCard from '@/app/components/widgets/cards/ProfileCard';

@@ -4,7 +4,7 @@ import './chat/Chatdata';
 import './email/EmailData';
 import './ticket/TicketData';
 import './contacts/ContactsData';
-import './eCommerce/ProductsData';
+import './influencer/ProductsData';
 import './userprofile/PostData';
 import './userprofile/UsersData';
 import './blog/blogData';

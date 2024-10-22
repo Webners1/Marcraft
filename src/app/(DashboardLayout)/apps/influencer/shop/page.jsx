@@ -14,10 +14,10 @@ const BCrumb = [
     title: 'Home',
   },
   {
-    title: 'Explore',
+    title: 'Shop',
   },
 ];
-const Explore = () => {
+const Ecommerce = () => {
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(true);
 
   return (
@@ -43,4 +43,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default Ecommerce;

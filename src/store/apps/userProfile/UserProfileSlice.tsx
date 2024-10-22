@@ -1,111 +1,30 @@
-import axios from '../../../utils/axios';
 import { createSlice } from '@reduxjs/toolkit';
-import { map } from 'lodash';
-import { AppDispatch } from '../../store';
 
-const API_URL = '/api/data/postData';
-
-interface StateType {
-  posts: any[];
-  followers: any[];
-  gallery: any[];
-}
-
+// Initial state for user profile
 const initialState = {
-  posts: [],
-  followers: [],
-  gallery: [],
+  profile: null,
+  error: null,
 };
 
-export const UserProfileSlice = createSlice({
-  name: 'UserPost',
+// Create the user profile slice
+const userProfileSlice = createSlice({
+  name: 'userProfile',
   initialState,
   reducers: {
-    getPosts: (state, action) => {
-      state.posts = action.payload;
+    // Set user profile action
+    setUserProfile: (state, action) => {
+      state.profile = action.payload;
     },
-    getFollowers: (state, action) => {
-      state.followers = action.payload;
-    },
-    getPhotos: (state, action) => {
-      state.gallery = action.payload;
-    },
-    onToggleFollow(state: StateType, action) {
-      const followerId = action.payload;
-
-      const handleToggle = map(state.followers, (follower) => {
-        if (follower.id === followerId) {
-          return {
-            ...follower,
-            isFollowed: !follower.isFollowed,
-          };
-        }
-
-        return follower;
-      });
-
-      state.followers = handleToggle;
+    // Clear user profile action
+    clearUserProfile: (state) => {
+      state.profile = null;
+      state.error = null;
     },
   },
 });
 
-export const { getPosts, getFollowers, onToggleFollow, getPhotos } = UserProfileSlice.actions;
+// Export actions
+export const { setUserProfile, clearUserProfile } = userProfileSlice.actions;
 
-export const fetchPosts = () => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${API_URL}`);
-    dispatch(getPosts(response.data));
-  } catch (err: any) {
-    throw new Error(err);
-  }
-};
-export const likePosts = (postId: number) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.post('/api/data/posts/like', { postId });
-    dispatch(getPosts(response.data.posts));
-  } catch (err: any) {
-    throw new Error(err);
-  }
-};
-export const addComment = (postId: number, comment: any[]) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.post('/api/data/posts/comments/add', { postId, comment });
-    dispatch(getPosts(response.data.posts));
-  } catch (err: any) {
-    throw new Error(err);
-  }
-};
-
-export const addReply =
-  (postId: number, commentId: any[], reply: any[]) => async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.post('/api/data/posts/replies/add', {
-        postId,
-        commentId,
-        reply,
-      });
-      dispatch(getPosts(response.data.posts));
-    } catch (err: any) {
-      throw new Error(err);
-    }
-  };
-
-export const fetchFollwores = () => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`/api/data/users`);
-    dispatch(getFollowers(response.data));
-  } catch (err: any) {
-    throw new Error(err);
-  }
-};
-
-export const fetchPhotos = () => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`/api/data/gallery`);
-    dispatch(getPhotos(response.data));
-  } catch (err: any) {
-    throw new Error(err);
-  }
-};
-
-export default UserProfileSlice.reducer;
+// Export the reducer
+export default userProfileSlice.reducer;

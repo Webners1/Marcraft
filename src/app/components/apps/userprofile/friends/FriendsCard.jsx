@@ -46,8 +46,9 @@ const FriendsCard = () => {
 
   // Handle dynamic routing when clicking on a card
   const handleCardClick = (username) => {
-    router.push(`/influencer/${username}`);
+    router.push(`/apps/user-profile/${username}`);
   };
+  
 
   return (
     <>
