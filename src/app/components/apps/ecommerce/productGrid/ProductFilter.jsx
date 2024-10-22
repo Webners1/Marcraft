@@ -1,150 +1,109 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Radio from '@mui/material/Radio';
 import Typography from '@mui/material/Typography';
-import {
-  filterProducts,
-  sortByProducts,
-  sortByGender,
-  sortByColor,
-  sortByPrice,
-  filterReset,
-} from '@/store/apps/eCommerce/ECommerceSlice';
-import { IconCheck } from '@tabler/icons-react';
-import {
-  IconHanger,
-  IconCircles,
-  IconNotebook,
-  IconMoodSmile,
-  IconDeviceLaptop,
-  IconSortAscending2,
-  IconSortDescending2,
-  IconAd2,
-} from '@tabler/icons-react';
-import { Stack } from '@mui/system';
+import Rating from '@mui/material/Rating'; // Import Rating component
+import { filterFriendsByCategory, filterFriendsByTag, filterFriendsByRating, resetFriends } from '@/store/friend/FriendSlice'; // Import correct actions
+import { IconCircles, IconMoodSmile, IconDeviceLaptop, IconNotebook } from '@tabler/icons-react';
 
 const ProductFilter = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.ecommerceReducer.products);
-  const active = useSelector((state) => state.ecommerceReducer.filters);
-  const checkactive = useSelector((state) => state.ecommerceReducer.sortBy);
-  const customizer = useSelector((state) => state.customizer);
-  const br = `${customizer.borderRadius}px`;
+  
+  // Access profiles and filters from Redux store
+  const activeCategory = useSelector((state) => state.friends.filters.category);
+  const activeTag = useSelector((state) => state.friends.filters.tag);
+  const activeRating = useSelector((state) => state.friends.filters.rating); // Access active rating filter
 
-  const getUniqueData = (data, attr) => {
-    let newVal = data.map((curElem) => {
-      return curElem[attr];
-    });
-    if (attr === 'colors') {
-      newVal = newVal.flat();
-    }
-
-    return (newVal = ['All', ...Array.from(new Set(newVal))]);
-  };
-
-  const filterbyGender = getUniqueData(products, 'gender');
-  const filterbyColors = getUniqueData(products, 'colors');
-
+  // Categories based on influencer type
   const filterCategory = [
     {
       id: 1,
-      filterbyTitle: 'Filter by Category',
+      filterbyTitle: 'Filter by Influencer Type',
     },
     {
       id: 2,
       name: 'All',
-      sort: 'All',
+      category: 'All',
       icon: IconCircles,
     },
     {
       id: 3,
-      name: 'Fashion',
-      sort: 'fashion',
-      icon: IconHanger,
-    },
-    {
-      id: 9,
-      name: 'Books',
-      sort: 'books',
-      icon: IconNotebook,
-    },
-    {
-      id: 10,
-      name: 'Toys',
-      sort: 'toys',
+      name: 'Meme Token Influencers',
+      category: 'Meme Token Influencer',
       icon: IconMoodSmile,
     },
     {
-      id: 11,
-      name: 'Electronics',
-      sort: 'electronics',
+      id: 4,
+      name: 'Trading Influencers',
+      category: 'Trading Influencer',
       icon: IconDeviceLaptop,
     },
     {
-      id: 6,
-      devider: true,
-    },
-  ];
-  const filterbySort = [
-    { id: 1, value: 'newest', label: 'Newest', icon: IconAd2 },
-    { id: 2, value: 'priceDesc', label: 'Price: High-Low', icon: IconSortAscending2 },
-    { id: 3, value: 'priceAsc', label: 'Price: Low-High', icon: IconSortDescending2 },
-    { id: 4, value: 'discount', label: 'Discounted', icon: IconAd2 },
-  ];
-  const filterbyPrice = [
-    {
-      id: 0,
-      label: 'All',
-      value: 'All',
-    },
-    {
-      id: 1,
-      label: '0-50',
-      value: '0-50',
-    },
-    {
-      id: 3,
-      label: '50-100',
-      value: '50-100',
-    },
-    {
-      id: 4,
-      label: '100-200',
-      value: '100-200',
-    },
-    {
       id: 5,
-      label: 'Over 200',
-      value: '200-99999',
+      name: 'Technical Influencers',
+      category: 'Technical Influencer',
+      icon: IconNotebook,
+    },
+    {
+      id: 6,
+      divider: true,
     },
   ];
 
-  const handlerGenderFilter = (value) => {
-    if (value.target.checked) {
-      dispatch(sortByGender({ gender: value.target.value }));
-    }
+  // Example tag-based filtering options (you can adjust these based on available tags)
+  const filterTags = [
+    {
+      id: 1,
+      filterbyTitle: 'Filter by Tags',
+    },
+    {
+      id: 2,
+      name: 'All',
+      tag: 'All',
+    },
+    {
+      id: 3,
+      name: 'DeFi',
+      tag: 'DeFi',
+    },
+    {
+      id: 4,
+      name: 'GameFi',
+      tag: 'GameFi',
+    },
+    {
+      id: 5,
+      name: 'Mini-Apps',
+      tag: 'Mini-Apps',
+    },
+  ];
+
+  // Handle filtering by category
+  const handleCategoryFilter = (category) => {
+    dispatch(filterFriendsByCategory({ category }));
   };
-  const handlerPriceFilter = (value) => {
-    if (value.target.checked) {
-      dispatch(sortByPrice({ price: value.target.value }));
-    }
+
+  // Handle filtering by tag
+  const handleTagFilter = (tag) => {
+    dispatch(filterFriendsByTag({ tag }));
+  };
+
+  // Handle filtering by rating
+  const handleRatingFilter = (rating) => {
+    dispatch(filterFriendsByRating(rating));
   };
 
   return (
     <>
       <List>
         {/* ------------------------------------------- */}
-        {/* Category filter */}
+        {/* Category filter (Crypto Influencer Types) */}
         {/* ------------------------------------------- */}
         {filterCategory.map((filter) => {
           if (filter.filterbyTitle) {
@@ -153,15 +112,15 @@ const ProductFilter = () => {
                 {filter.filterbyTitle}
               </Typography>
             );
-          } else if (filter.devider) {
+          } else if (filter.divider) {
             return <Divider key={filter.id} />;
           }
 
           return (
             <ListItemButton
-              sx={{ mb: 1, mx: 3, borderRadius: br }}
-              selected={active.category === `${filter.sort}`}
-              onClick={() => dispatch(filterProducts({ category: `${filter.sort}` }))}
+              sx={{ mb: 1, mx: 3 }}
+              selected={activeCategory === filter.category}
+              onClick={() => handleCategoryFilter(filter.category)}
               key={filter.id}
             >
               <ListItemIcon sx={{ minWidth: '30px' }}>
@@ -171,118 +130,56 @@ const ProductFilter = () => {
             </ListItemButton>
           );
         })}
+
+        <Divider />
+
         {/* ------------------------------------------- */}
-        {/* Sort by */}
+        {/* Tag-based Filter */}
         {/* ------------------------------------------- */}
-        <Typography variant="subtitle2" fontWeight={600} px={3} mt={3} pb={2}>
-          Sort By
-        </Typography>
-        {filterbySort.map((filter) => {
+        {filterTags.map((filter) => {
+          if (filter.filterbyTitle) {
+            return (
+              <Typography variant="subtitle2" fontWeight={600} px={3} mt={2} pb={2} key={filter.id}>
+                {filter.filterbyTitle}
+              </Typography>
+            );
+          }
+
           return (
             <ListItemButton
-              sx={{ mb: 1, mx: 3, borderRadius: br }}
-              selected={checkactive === `${filter.value}`}
-              onClick={() => dispatch(sortByProducts(`${filter.value}`))}
-              key={filter.id + filter.label + filter.value}
+              sx={{ mb: 1, mx: 3 }}
+              selected={activeTag === filter.tag}
+              onClick={() => handleTagFilter(filter.tag)}
+              key={filter.id}
             >
-              <ListItemIcon sx={{ minWidth: '30px' }}>
-                <filter.icon stroke="1.5" size={19} />
-              </ListItemIcon>
-              <ListItemText>{filter.label}</ListItemText>
+              <ListItemText>{filter.name}</ListItemText>
             </ListItemButton>
           );
         })}
-        <Divider></Divider>
+
+        <Divider />
+
         {/* ------------------------------------------- */}
-        {/* Filter By Gender */}
+        {/* Rating Filter */}
         {/* ------------------------------------------- */}
-        <Box p={3}>
+        <Box px={3} mt={2}>
           <Typography variant="subtitle2" fontWeight={600}>
-            By Gender
+            Filter by Rating
           </Typography>
-          <br />
-          <FormGroup>
-            {filterbyGender.map((gen) => (
-              <FormControlLabel
-                key={gen}
-                control={
-                  <Radio
-                    value={gen}
-                    checked={active.gender === gen}
-                    onChange={handlerGenderFilter}
-                  />
-                }
-                label={gen}
-              />
-            ))}
-          </FormGroup>
+          <Rating
+            name="rating-filter"
+            value={activeRating}
+            onChange={(event, newValue) => handleRatingFilter(newValue || 0)}
+          />
         </Box>
-        <Divider></Divider>
+
+        <Divider />
+
         {/* ------------------------------------------- */}
-        {/* Filter By Pricing */}
-        {/* ------------------------------------------- */}
-        <Typography variant="h6" px={3} mt={3} pb={2}>
-          By Pricing
-        </Typography>
-        <Box p={3} pt={0}>
-          <FormGroup>
-            {filterbyPrice.map((price) => (
-              <FormControlLabel
-                key={price.label}
-                control={
-                  <Radio
-                    value={price.value}
-                    checked={active.price === price.value}
-                    onChange={handlerPriceFilter}
-                  />
-                }
-                label={price.label}
-              />
-            ))}
-          </FormGroup>
-        </Box>
-        <Divider></Divider>
-        <Typography variant="h6" px={3} mt={3} pb={2}>
-          By Colors
-        </Typography>
-        {/* ------------------------------------------- */}
-        {/* Filter By colors */}
-        {/* ------------------------------------------- */}
-        <Box p={3} pt={0}>
-          <Stack direction={'row'} flexWrap="wrap" gap={1}>
-            {filterbyColors.map((curColor) => {
-              if (curColor !== 'All') {
-                return (
-                  <Avatar
-                    sx={{
-                      backgroundColor: curColor,
-                      width: 24,
-                      height: 24,
-                      cursor: 'pointer',
-                    }}
-                    aria-label={curColor}
-                    key={curColor}
-                    onClick={
-                      active.color === curColor
-                        ? () => dispatch(sortByColor({ color: 'All' }))
-                        : () => dispatch(sortByColor({ color: curColor }))
-                    }
-                  >
-                    {active.color === curColor ? <IconCheck size="13" /> : ''}
-                  </Avatar>
-                );
-              } else {
-                return <Box key={curColor} sx={{ display: 'none' }}></Box>;
-              }
-            })}
-          </Stack>
-        </Box>
-        <Divider></Divider>
-        {/* ------------------------------------------- */}
-        {/* Reset */}
+        {/* Reset Filters */}
         {/* ------------------------------------------- */}
         <Box p={3}>
-          <Button variant="contained" onClick={() => dispatch(filterReset())} fullWidth>
+          <Button variant="contained" onClick={() => dispatch(resetFriends())} fullWidth>
             Reset Filters
           </Button>
         </Box>

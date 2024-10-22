@@ -9,6 +9,9 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import "@/utils/i18n";
 import "@/app/api/index";
 
+// Import FirebaseProvider to wrap the app
+import { FirebaseProvider } from "./firebase";
+
 const MyApp = ({ children }) => {
     const theme = ThemeSettings();
     const customizer = useSelector((state) => state.customizer);
@@ -19,7 +22,9 @@ const MyApp = ({ children }) => {
                 <ThemeProvider theme={theme}>
                     <RTL direction={customizer.activeDir}>
                         <CssBaseline />
-                        {children}
+                        <FirebaseProvider>
+                            {children}
+                        </FirebaseProvider>
                     </RTL>
                 </ThemeProvider>
             </AppRouterCacheProvider>

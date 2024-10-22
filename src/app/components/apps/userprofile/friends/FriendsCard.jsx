@@ -1,66 +1,53 @@
+"use client";
+
 import Avatar from '@mui/material/Avatar';
 import { Grid, Rating, Box, Stack } from '@mui/material';
-// import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
-// import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-// import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import BlankCard from '../../../../components/shared/BlankCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchFollwores } from '@/store/apps/userProfile/UserProfileSlice';
-import {
-  IconBrandFacebook,
-  IconBrandGithub,
-  IconBrandInstagram,
-  IconBrandTwitter,
-  IconSearch,
-} from '@tabler/icons-react';
-import MuiRating from '@/app/(DashboardLayout)/ui-components/rating/page';
+import { useRouter } from 'next/navigation';
+import { IconBrandTwitter, IconSearch } from '@tabler/icons-react';
 import InlineItemCard from '@/app/components/shared/InlineItemCard';
+import { useSelector, useDispatch } from 'react-redux'; // Import useSelector and useDispatch
+import { filterFriendsByCategory } from '@/store/friend/FriendSlice'; // Import filter action
 
 const SocialIcons = [
-  {
-    name: 'Facebook',
-    icon: <IconBrandFacebook size="18" color="#1877F2" />,
-  },
-  {
-    name: 'Instagram',
-    icon: <IconBrandInstagram size="18" color="#D7336D" />,
-  },
-  {
-    name: 'Github',
-    icon: <IconBrandGithub size="18" color="#006097" />,
-  },
   {
     name: 'Twitter',
     icon: <IconBrandTwitter size="18" color="#1C9CEA" />,
   },
 ];
 
+// Function to get a random color from available color options
+const getRandomColor = () => {
+  const colors = ['primary', 'secondary', 'success', 'error', 'warning', 'info'];
+  return colors[Math.floor(Math.random() * colors.length)];
+};
+
 const FriendsCard = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchFollwores());
-  }, [dispatch]);
+  
+  // Get profiles data from Redux, and ensure it's defined with a fallback to an empty array
+  const profiles = useSelector((state) => state.friends.profiles || []);
+  const [search, setSearch] = useState('');
 
-  const filterFriends = (friends, cSearch) => {
-    if (friends)
-      return friends.filter((t) =>
-        t.name.toLocaleLowerCase().includes(cSearch.toLocaleLowerCase()),
-      );
-
-    return friends;
+  // Handle search input
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+    dispatch(filterFriendsByCategory(e.target.value)); // Dispatch the filterFriends action
   };
-  const [search, setSearch] = React.useState('');
-  const getFriends = useSelector((state) =>
-    filterFriends(state.userpostsReducer.followers, search),
-  );
+
+  // Handle dynamic routing when clicking on a card
+  const handleCardClick = (username) => {
+    router.push(`/influencer/${username}`);
+  };
 
   return (
     <>
@@ -69,18 +56,18 @@ const FriendsCard = () => {
           <Stack direction="row" alignItems={'center'} mt={2}>
             <Box>
               <Typography variant="h3">
-                Influincers &nbsp;
-                <Chip label={getFriends.length} color="secondary" size="small" />
+                Influencers &nbsp;
+                <Chip label={profiles.length} color="secondary" size="small" />
               </Typography>
             </Box>
             <Box ml="auto">
               <TextField
                 id="outlined-search"
-                placeholder="Search Influincers"
+                placeholder="Search Influencers"
                 size="small"
                 type="search"
                 variant="outlined"
-                inputProps={{ 'aria-label': 'Search Influincers' }}
+                inputProps={{ 'aria-label': 'Search Influencers' }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -89,26 +76,27 @@ const FriendsCard = () => {
                   ),
                 }}
                 fullWidth
-                onChange={(e) => setSearch(e.target.value)}
+                value={search}
+                onChange={handleSearchChange}
               />
             </Box>
           </Stack>
         </Grid>
-        {getFriends.map((profile) => {
-          return (
-            <Grid item sm={12} lg={4} key={profile.id}>
+
+        {/* Render profiles dynamically from Redux state */}
+        {profiles.length > 0 ? ( // Ensure profiles array is not empty before mapping
+          profiles.map((profile) => (
+            <Grid item sm={12} lg={4} key={profile.id} onClick={() => handleCardClick(profile.username)}>
               <BlankCard className="hoverCard">
                 <CardContent>
                   <Stack direction={'column'} gap={2} alignItems="center">
                     <Avatar
-                      alt="Remy Sharp" s
+                      alt={profile.name}
                       src={profile.avatar}
                       sx={{ width: '80px', height: '80px' }}
                     />
                     <Box textAlign={'center'}>
                       <Typography variant="h5">{profile.name}</Typography>
-
-
                     </Box>
                   </Stack>
                 </CardContent>
@@ -116,40 +104,32 @@ const FriendsCard = () => {
                 <Box p={2} py={1} textAlign={'center'} sx={{ backgroundColor: 'grey.100' }}>
                   <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
                     <Box width={'50%'}>
-                      <Rating name="read-only" value={5} />
+                      <Rating name="read-only" value={profile.rating} readOnly />
                     </Box>
                     <Box width={'50%'}>
-                      {SocialIcons.map((sicon) => {
-                        return <IconButton key={sicon.name}>{sicon.icon}</IconButton>;
-                      })}
+                      {SocialIcons.map((sicon) => (
+                        <IconButton key={sicon.name}>{sicon.icon}</IconButton>
+                      ))}
                     </Box>
                   </Box>
                   <InlineItemCard>
-                    {/* <Chip label="Default Filled" /> */}
-                    {/* <Chip avatar={<Avatar>M</Avatar>} label="Default Deletable" onDelete={handleDelete} /> */}
-                    <Chip variant="outlined" label="DeFi" color="primary" />
-                    {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-4.jpg"} />} label="Primary Deletable" color="primary" onDelete={handleDelete} /> */}
-                    <Chip variant="outlined" label="GameFi" color="secondary" />
-                    {/* <Chip icon={<IconMoodHappy />} label="Secondary Deletable" color="secondary" onDelete={handleDelete} /> */}
-                    <Chip variant="outlined" label="Mini-Apps" color="success" />
-                    {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-2.jpg"} />} label="Default Deletable" color="success" onDelete={handleDelete} /> */}
-                    <Chip variant="outlined" label="More..." color="warning" />
-                    {/* <Chip icon={<IconMoodHappy />} label="Default Deletable" color="warning" onDelete={handleDelete} /> */}
-                    {/* <Chip label="Default Filled" color="error" /> */}
-                    {/* <Chip avatar={<Avatar alt="Natacha" src={"/images/profile/user-3.jpg"} />} label="Default Deletable" color="error" onDelete={handleDelete} /> */}
+                    {/* Render each tag with a random color */}
+                    {profile.tags.map((tag, index) => (
+                      <Chip
+                        key={index}
+                        variant="outlined"
+                        label={tag}
+                        color={getRandomColor()} // Apply random color
+                      />
+                    ))}
                   </InlineItemCard>
-                  {/* <Box textAlign={'center'} display={"flex"} justifyContent={'space-around'} gap={'1rem'} margin={'0.5rem 0rem'}>
-                    <Typography fontSize={'12.5px'} backgroundColor={"green"} variant="semi-bold"  padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >DeFi</Typography>
-                    <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'orange'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >GameFi</Typography>
-                    <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'teal'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >Mini-Apps</Typography>
-                    <Typography fontSize={'12.5px'} variant="semi-bold" backgroundColor={'teal'} padding={'0.1rem 0.5rem'} borderRadius={'1rem'} >More...</Typography>
-                  </Box> */}
-
                 </Box>
               </BlankCard>
             </Grid>
-          );
-        })}
+          ))
+        ) : (
+          <Typography variant="h6">No profiles available</Typography>
+        )}
       </Grid>
     </>
   );

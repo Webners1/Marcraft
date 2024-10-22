@@ -11,7 +11,7 @@ import TicketReducer from './apps/tickets/TicketSlice';
 import ContactsReducer from './apps/contacts/ContactSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import BlogReducer from './apps/blog/BlogSlice';
-
+import friendsReducer from './friend/FriendSlice'; // Import the friends reducer
 const persistConfig = {
   key: 'root',
   storage,
@@ -24,6 +24,7 @@ export const store = configureStore({
     chatReducer: ChatsReducer,
     emailReducer: EmailReducer,
     notesReducer: NotesReducer,
+    friends: friendsReducer, // Add the friends reducer
     contactsReducer: ContactsReducer,
     ticketReducer: TicketReducer,
     userpostsReducer: UserProfileReducer,
