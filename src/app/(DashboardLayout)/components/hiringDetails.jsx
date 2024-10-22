@@ -39,6 +39,7 @@ import { Stack } from '@mui/material';
 // import ReactQuill from 'react-quill';
 import { useTheme } from '@emotion/react';
 import styles from "./pricing.module.css"
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 import './Quill.css';
 
@@ -56,7 +57,6 @@ const ReactQuill = dynamic(
 );
 
 export default function HiringDetails() {
-
 
     const [title, setTitle] = React.useState("")
     const [price, setPrice] = React.useState("")
@@ -132,6 +132,7 @@ export default function HiringDetails() {
                         />
                     </div>
                     <button type="submit" className={styles.button}>Hire</button>
+                    <ConnectButton />
                 </form>
             </div>
         </PageContainer >
