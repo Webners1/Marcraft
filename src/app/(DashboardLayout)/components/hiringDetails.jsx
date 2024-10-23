@@ -124,7 +124,9 @@ export default function HiringDetails() {
                             ?
                             <button type='submit' className={styles.button}>Hire</button>
                             :
-                            <ConnectButton />
+                            <div className={styles.cnctBtn}>
+                                <ConnectButton />
+                            </div>
                     }
                 </form>
             </div>
