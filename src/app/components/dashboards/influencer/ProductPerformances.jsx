@@ -136,7 +136,11 @@ const ProductPerformances = ({ products }) => {
                   Budget
                 </Typography>
               </TableCell>
-              <TableCell></TableCell>
+              <TableCell>
+              <Typography variant="subtitle2" fontWeight={600}>
+                  Offer
+                </Typography>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

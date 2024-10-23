@@ -67,6 +67,7 @@ export default function Dashboard() {
               posts={profile?.posts || 0}
               followers={profile?.followers || 0}
               following={profile?.following || 0}
+              isWallet={true}
             />
           </Grid>
 
