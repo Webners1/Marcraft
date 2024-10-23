@@ -20,7 +20,7 @@ export default function Register() {
   };
 
   return (
-    <PageContainer title="Register Page" description="This is a sample page">
+    <PageContainer title="Sign-in Page" description="This is a sample page">
       <Grid
         container
         spacing={0}
@@ -116,7 +116,7 @@ export default function Register() {
                   color: "primary.main",
                 }}
               >
-                Sign In
+                Sign Up
               </Typography>
             </Stack>
           </Box>

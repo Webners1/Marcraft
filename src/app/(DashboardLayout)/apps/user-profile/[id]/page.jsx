@@ -2,14 +2,28 @@
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserProfile, clearUserProfile } from '@/store/apps/userProfile/UserProfileSlice';
+import { setUserProfile, clearUserProfile, fetchIndividualInfluencer } from '@/store/apps/userProfile/UserProfileSlice';
 import PageContainer from '@/app/components/container/PageContainer';
 import ProfileBanner from '@/app/components/apps/userprofile/profile/ProfileBanner';
 import IntroCard from '@/app/components/apps/userprofile/profile/IntroCard';
 import ChildCard from '@/app/components/shared/ChildCard';
 import dynamic from 'next/dynamic';
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Typography, Chip, Grid, Box, Tabs, Tab, Card, CardContent, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import {
+  Avatar,
+  Typography,
+  Chip,
+  Grid,
+  Box,
+  Tabs,
+  Tab,
+  Card,
+  CardContent,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 import InlineItemCard from '@/app/components/shared/InlineItemCard';
 import { IconMoodSmile, IconDeviceLaptop, IconNotebook } from '@tabler/icons-react';
 import LinkIcon from '@mui/icons-material/Link';
@@ -21,35 +35,37 @@ const colorClasses = ['primary', 'secondary', 'success', 'warning', 'error', 'in
 const getRandomColorClass = () => colorClasses[Math.floor(Math.random() * colorClasses.length)];
 
 export default function UserProfile({ params }) {
-  const { username } = params;
+  const { id } = params;
   const dispatch = useDispatch();
   const [tabIndex, setTabIndex] = useState(0);
   const [tabIndex2, setTabIndex2] = useState(0);
 
-  const friends = useSelector((state) => state.friends.profiles);
+  const { token } = useSelector((state) => state.counter);
   const { profile, loading, error } = useSelector((state) => state.userProfile);
 
   useEffect(() => {
-    if (username && friends.length > 0) {
-      const userProfile = friends.find((friend) => friend.username === username);
-      if (userProfile) {
-        dispatch(setUserProfile(userProfile));
-      }
+    if (id && token) {
+      dispatch(fetchIndividualInfluencer(id, token));
     }
 
     return () => {
       dispatch(clearUserProfile());
     };
-  }, [dispatch, username, friends]);
+  }, []);
 
   // Categories and icons for influencer types
   const categories = [
-    { id: 1, name: 'Meme Token Influencer', category: 'Meme Token Influencer', icon: IconMoodSmile },
+    {
+      id: 1,
+      name: 'Meme Token Influencer',
+      category: 'Meme Token Influencer',
+      icon: IconMoodSmile,
+    },
     { id: 2, name: 'Trading Influencer', category: 'Trading Influencer', icon: IconDeviceLaptop },
     { id: 3, name: 'Technical Influencer', category: 'Technical Influencer', icon: IconNotebook },
   ];
 
-  const influencerCategory = categories.find(c => c.category === profile?.category);
+  const influencerCategory = categories.find((c) => c.category === profile?.category);
   const IconComponent = influencerCategory?.icon || null;
 
   // Theme and color settings
@@ -113,19 +129,25 @@ export default function UserProfile({ params }) {
     stroke: { show: true, width: 2, colors: ['transparent'] },
   };
   const barChartSeries = [
-    { name: 'Tag & Content Matches', data: Object.values(categoryMatches).map(match => match.tag_and_content_matches) },
-    { name: 'URL Matches', data: Object.values(categoryMatches).map(match => match.url_matches.length) },
+    {
+      name: 'Tag & Content Matches',
+      data: Object.values(categoryMatches).map((match) => match.tag_and_content_matches),
+    },
+    {
+      name: 'URL Matches',
+      data: Object.values(categoryMatches).map((match) => match.url_matches.length),
+    },
   ];
 
   // Post Metrics
-  const months = profile?.posts.map(post => post.month) || [];
-  const likesData = profile?.posts.map(post => post.likes) || [];
-  const commentsData = profile?.posts.map(post => post.comments) || [];
-  const retweetsData = profile?.posts.map(post => post.retweets) || [];
+  const months = profile?.posts.map((post) => post.month) || [];
+  const likesData = profile?.posts.map((post) => post.likes) || [];
+  const commentsData = profile?.posts.map((post) => post.comments) || [];
+  const retweetsData = profile?.posts.map((post) => post.retweets) || [];
 
   // Sentiment Analysis
-  const goodSentimentPosts = profile?.posts.filter(post => post.sentiment === 'good').length || 0;
-  const badSentimentPosts = profile?.posts.filter(post => post.sentiment === 'bad').length || 0;
+  const goodSentimentPosts = profile?.posts.filter((post) => post.sentiment === 'good').length || 0;
+  const badSentimentPosts = profile?.posts.filter((post) => post.sentiment === 'bad').length || 0;
 
   // Graphics vs Text Data
   const optionsGraphicsVsTextChart = {
@@ -164,7 +186,7 @@ export default function UserProfile({ params }) {
   const getTop5Urls = () => {
     if (!profile || !categoryMatches) return [];
     const urls = [];
-    Object.keys(categoryMatches).forEach(category => {
+    Object.keys(categoryMatches).forEach((category) => {
       const match = categoryMatches[category];
       if (match.url_matches && match.url_matches.length > 0) {
         urls.push(...match.url_matches);
@@ -176,7 +198,8 @@ export default function UserProfile({ params }) {
   const top5Urls = getTop5Urls();
 
   // Expertise Level based on rating
-  const expertiseLevel = profile?.rating > 4 ? 'Expert' : profile?.rating > 3 ? 'Intermediate' : 'Beginner';
+  const expertiseLevel =
+    profile?.rating > 4 ? 'Expert' : profile?.rating > 3 ? 'Intermediate' : 'Beginner';
 
   // Handle tab change for categories
   const handleTabChange = (event, newIndex) => setTabIndex(newIndex);
@@ -187,7 +210,10 @@ export default function UserProfile({ params }) {
   if (!profile) return <Typography>No profile found</Typography>;
 
   return (
-    <PageContainer title={`Profile of ${profile.name}`} description={`Profile page of ${profile.name}`}>
+    <PageContainer
+      title={`Profile of ${profile.name}`}
+      description={`Profile page of ${profile.name}`}
+    >
       <Grid container spacing={3}>
         {/* Profile Banner */}
         <Grid item xs={12}>
@@ -208,10 +234,17 @@ export default function UserProfile({ params }) {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <ChildCard>
-                <Typography fontWeight={600} variant="h5" mb={2}>Influencer Type Tags</Typography>
+                <Typography fontWeight={600} variant="h5" mb={2}>
+                  Influencer Type Tags
+                </Typography>
                 <InlineItemCard>
                   {profile.tags.map((tag, index) => (
-                    <Chip key={index} avatar={<Avatar>{tag[0]}</Avatar>} label={tag} color={getRandomColorClass()} />
+                    <Chip
+                      key={index}
+                      avatar={<Avatar>{tag[0]}</Avatar>}
+                      label={tag}
+                      color={getRandomColorClass()}
+                    />
                   ))}
                 </InlineItemCard>
               </ChildCard>
@@ -234,24 +267,43 @@ export default function UserProfile({ params }) {
         <Grid item xs={12} md={8}>
           <Box mb={3}>
             <ChildCard>
-              <Typography fontWeight={600} variant="h5" mb={2}>Post Metrics Over Time</Typography>
-              <Chart options={optionsLineChart} series={seriesLineChart} type="line" height="300px" width="100%" />
+              <Typography fontWeight={600} variant="h5" mb={2}>
+                Post Metrics Over Time
+              </Typography>
+              <Chart
+                options={optionsLineChart}
+                series={seriesLineChart}
+                type="line"
+                height="300px"
+                width="100%"
+              />
             </ChildCard>
           </Box>
 
           <Box mb={3}>
             <ChildCard>
-              <Typography fontWeight={600} variant="h5" mb={2}>Graphics vs Text Ratio</Typography>
-              <Chart options={optionsGraphicsVsTextChart} series={seriesGraphicsVsTextChart} type="pie" height="300px" width="100%" />
+              <Typography fontWeight={600} variant="h5" mb={2}>
+                Graphics vs Text Ratio
+              </Typography>
+              <Chart
+                options={optionsGraphicsVsTextChart}
+                series={seriesGraphicsVsTextChart}
+                type="pie"
+                height="300px"
+                width="100%"
+              />
               <Typography variant="body2" color="textSecondary" mt={2} fontStyle="italic">
-                The ratio refers to the proportion of images to text content in posts. Higher ratio means more visuals.
+                The ratio refers to the proportion of images to text content in posts. Higher ratio
+                means more visuals.
               </Typography>
             </ChildCard>
           </Box>
 
           <Box mb={3}>
             <ChildCard>
-              <Typography fontWeight={600} variant="h5" mb={2}>Influencer Category & Expertise</Typography>
+              <Typography fontWeight={600} variant="h5" mb={2}>
+                Influencer Category & Expertise
+              </Typography>
               <Box display="flex" alignItems="center" mb={3}>
                 {IconComponent && <IconComponent size="32px" style={{ marginRight: '12px' }} />}
                 <Typography variant="h6" fontWeight={600}>
@@ -259,53 +311,101 @@ export default function UserProfile({ params }) {
                 </Typography>
               </Box>
               <Typography variant="body1" color="textSecondary">
-                {profile.name} is a {expertiseLevel} influencer in the {influencerCategory?.name || 'Unknown Category'} domain. Their content attracts a significant audience.
+                {profile.name} is a {expertiseLevel} influencer in the{' '}
+                {influencerCategory?.name || 'Unknown Category'} domain. Their content attracts a
+                significant audience.
               </Typography>
             </ChildCard>
           </Box>
 
           <Box mb={3}>
             <ChildCard>
-              <Typography fontWeight={600} variant="h5" mb={2}>Sentiment Analysis of Posts</Typography>
-              <Chart options={optionsSentimentChart} series={seriesSentimentChart} type="pie" height="300px" />
+              <Typography fontWeight={600} variant="h5" mb={2}>
+                Sentiment Analysis of Posts
+              </Typography>
+              <Chart
+                options={optionsSentimentChart}
+                series={seriesSentimentChart}
+                type="pie"
+                height="300px"
+              />
               <Typography variant="body2" color="textSecondary" mt={2} fontStyle="italic">
-                Positive sentiment refers to favorable posts, while negative sentiment shows criticism.
+                Positive sentiment refers to favorable posts, while negative sentiment shows
+                criticism.
               </Typography>
             </ChildCard>
           </Box>
         </Grid>
-                  
-                     {/* Main Content: Charts and Metrics */}
+
+        {/* Main Content: Charts and Metrics */}
         <Grid item xs={12} md={8}>
           <Box mb={3}>
             <ChildCard>
-              <Typography fontWeight={600} variant="h5" mb={2}>Post Averages (Weekly, Monthly, Yearly)</Typography>
-              <Chart options={averagePostsBarChartOptions} series={averagePostsBarChartSeries} type="bar" height="300px" width="100%" />
+              <Typography fontWeight={600} variant="h5" mb={2}>
+                Post Averages (Weekly, Monthly, Yearly)
+              </Typography>
+              <Chart
+                options={averagePostsBarChartOptions}
+                series={averagePostsBarChartSeries}
+                type="bar"
+                height="300px"
+                width="100%"
+              />
             </ChildCard>
           </Box>
 
           {/* Most Engaged Posts */}
           <Box mb={3}>
             <ChildCard>
-              <Typography fontWeight={600} variant="h5" mb={2}>Most Liked Post</Typography>
-              <Typography variant="body1" color="textSecondary" mb={2}>{mostLikedPost.text}</Typography>
-              <Chart options={engagementBarChartOptions} series={engagementBarChartSeries(mostLikedPost)} type="bar" height="300px" width="100%" />
+              <Typography fontWeight={600} variant="h5" mb={2}>
+                Most Liked Post
+              </Typography>
+              <Typography variant="body1" color="textSecondary" mb={2}>
+                {mostLikedPost.text}
+              </Typography>
+              <Chart
+                options={engagementBarChartOptions}
+                series={engagementBarChartSeries(mostLikedPost)}
+                type="bar"
+                height="300px"
+                width="100%"
+              />
             </ChildCard>
           </Box>
 
           <Box mb={3}>
             <ChildCard>
-              <Typography fontWeight={600} variant="h5" mb={2}>Most Retweeted Post</Typography>
-              <Typography variant="body1" color="textSecondary" mb={2}>{mostRetweetedPost.text}</Typography>
-              <Chart options={engagementBarChartOptions} series={engagementBarChartSeries(mostRetweetedPost)} type="bar" height="300px" width="100%" />
+              <Typography fontWeight={600} variant="h5" mb={2}>
+                Most Retweeted Post
+              </Typography>
+              <Typography variant="body1" color="textSecondary" mb={2}>
+                {mostRetweetedPost.text}
+              </Typography>
+              <Chart
+                options={engagementBarChartOptions}
+                series={engagementBarChartSeries(mostRetweetedPost)}
+                type="bar"
+                height="300px"
+                width="100%"
+              />
             </ChildCard>
           </Box>
 
           <Box mb={3}>
             <ChildCard>
-              <Typography fontWeight={600} variant="h5" mb={2}>Most Commented Post</Typography>
-              <Typography variant="body1" color="textSecondary" mb={2}>{mostCommentedPost.text}</Typography>
-              <Chart options={engagementBarChartOptions} series={engagementBarChartSeries(mostCommentedPost)} type="bar" height="300px" width="100%" />
+              <Typography fontWeight={600} variant="h5" mb={2}>
+                Most Commented Post
+              </Typography>
+              <Typography variant="body1" color="textSecondary" mb={2}>
+                {mostCommentedPost.text}
+              </Typography>
+              <Chart
+                options={engagementBarChartOptions}
+                series={engagementBarChartSeries(mostCommentedPost)}
+                type="bar"
+                height="300px"
+                width="100%"
+              />
             </ChildCard>
           </Box>
         </Grid>
@@ -322,7 +422,13 @@ export default function UserProfile({ params }) {
                 justifyContent: 'center',
               }}
             >
-              <Tabs value={tabIndex2} onChange={handleTabChange2} indicatorColor="primary" textColor="primary" variant="fullWidth">
+              <Tabs
+                value={tabIndex2}
+                onChange={handleTabChange2}
+                indicatorColor="primary"
+                textColor="primary"
+                variant="fullWidth"
+              >
                 <Tab label="Category Percentages" />
                 <Tab label="Category Matches" />
                 <Tab label="Top 5 URLs" />
@@ -335,9 +441,15 @@ export default function UserProfile({ params }) {
                 <Typography variant="h5" fontWeight={600} gutterBottom>
                   Tweet Category Distribution for {profile.name}
                 </Typography>
-                <Chart options={pieChartOptions} series={pieChartSeries} type="pie" height="300px" />
+                <Chart
+                  options={pieChartOptions}
+                  series={pieChartSeries}
+                  type="pie"
+                  height="300px"
+                />
                 <Typography variant="body2" color="textSecondary" mt={2} fontStyle="italic">
-                  Distribution of tweets across categories. Each category represents a particular theme.
+                  Distribution of tweets across categories. Each category represents a particular
+                  theme.
                 </Typography>
               </CardContent>
             )}
@@ -345,10 +457,23 @@ export default function UserProfile({ params }) {
             {/* Category Matches Tab */}
             {tabIndex2 === 1 && (
               <CardContent sx={{ padding: '24px' }}>
-                <Typography variant="h5" fontWeight={600} gutterBottom>Tag & Content Matches for {profile.name}</Typography>
-                <Chart options={barChartOptions} series={barChartSeries} type="bar" height="300px" />
-                <Typography variant="body2" color="textSecondary" sx={{ marginTop: '16px' }} fontStyle="italic">
-                  Shows the frequency of tags/keywords appearing in posts and the URLs they are associated with.
+                <Typography variant="h5" fontWeight={600} gutterBottom>
+                  Tag & Content Matches for {profile.name}
+                </Typography>
+                <Chart
+                  options={barChartOptions}
+                  series={barChartSeries}
+                  type="bar"
+                  height="300px"
+                />
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  sx={{ marginTop: '16px' }}
+                  fontStyle="italic"
+                >
+                  Shows the frequency of tags/keywords appearing in posts and the URLs they are
+                  associated with.
                 </Typography>
               </CardContent>
             )}
@@ -356,18 +481,24 @@ export default function UserProfile({ params }) {
             {/* Top 5 URLs Tab */}
             {tabIndex2 === 2 && (
               <CardContent sx={{ padding: '24px' }}>
-                <Typography variant="h5" fontWeight={600} gutterBottom>Top 5 URLs Shared by {profile.name}</Typography>
+                <Typography variant="h5" fontWeight={600} gutterBottom>
+                  Top 5 URLs Shared by {profile.name}
+                </Typography>
                 {top5Urls.length > 0 ? (
                   <List>
                     {top5Urls.map((url, index) => (
                       <ListItem key={index}>
-                        <ListItemIcon><LinkIcon color="primary" /></ListItemIcon>
+                        <ListItemIcon>
+                          <LinkIcon color="primary" />
+                        </ListItemIcon>
                         <ListItemText primary={url} />
                       </ListItem>
                     ))}
                   </List>
                 ) : (
-                  <Typography variant="body1" color="textSecondary">No URLs found</Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    No URLs found
+                  </Typography>
                 )}
               </CardContent>
             )}
@@ -377,8 +508,22 @@ export default function UserProfile({ params }) {
         {/* Top 10 Tags and Post Virality */}
         <Grid item xs={12}>
           <Card sx={{ boxShadow: 3, borderRadius: 2, mb: 4 }}>
-            <Box sx={{ backgroundColor: theme.palette.background.default, borderBottom: `1px solid ${theme.palette.divider}`, padding: '10px 16px', display: 'flex', justifyContent: 'center' }}>
-              <Tabs value={tabIndex} onChange={handleTabChange} indicatorColor="primary" textColor="primary" variant="fullWidth">
+            <Box
+              sx={{
+                backgroundColor: theme.palette.background.default,
+                borderBottom: `1px solid ${theme.palette.divider}`,
+                padding: '10px 16px',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <Tabs
+                value={tabIndex}
+                onChange={handleTabChange}
+                indicatorColor="primary"
+                textColor="primary"
+                variant="fullWidth"
+              >
                 <Tab label="Top 10 Tags" />
                 <Tab label="Post Virality" />
               </Tabs>
@@ -386,10 +531,22 @@ export default function UserProfile({ params }) {
 
             {tabIndex === 0 && (
               <CardContent sx={{ padding: '24px' }}>
-                <Typography variant="h5" fontWeight={600} gutterBottom>Top 10 Tags Used by {profile.name}</Typography>
+                <Typography variant="h5" fontWeight={600} gutterBottom>
+                  Top 10 Tags Used by {profile.name}
+                </Typography>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, padding: '12px 0' }}>
                   {profile.tags.slice(0, 10).map((tag, index) => (
-                    <Chip key={index} label={tag} color={getRandomColorClass()} sx={{ fontWeight: 600, fontSize: '14px', padding: '6px 12px', borderRadius: '8px' }} />
+                    <Chip
+                      key={index}
+                      label={tag}
+                      color={getRandomColorClass()}
+                      sx={{
+                        fontWeight: 600,
+                        fontSize: '14px',
+                        padding: '6px 12px',
+                        borderRadius: '8px',
+                      }}
+                    />
                   ))}
                 </Box>
               </CardContent>
@@ -397,16 +554,40 @@ export default function UserProfile({ params }) {
 
             {tabIndex === 1 && (
               <CardContent sx={{ padding: '24px' }}>
-                <Typography variant="h5" fontWeight={600} gutterBottom>Post Virality Analysis</Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: theme.palette.background.paper, padding: '20px', borderRadius: '8px', boxShadow: 1, textAlign: 'center' }}>
-                  <Typography variant="h4" color={theme.palette.primary.main} fontWeight={700}>{viralityPercentage.toFixed(2)}%</Typography>
-                  <Typography variant="body1" color="textSecondary" sx={{ marginLeft: '10px' }}>Overall Engagement (Likes, Comments, Retweets)</Typography>
+                <Typography variant="h5" fontWeight={600} gutterBottom>
+                  Post Virality Analysis
+                </Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: theme.palette.background.paper,
+                    padding: '20px',
+                    borderRadius: '8px',
+                    boxShadow: 1,
+                    textAlign: 'center',
+                  }}
+                >
+                  <Typography variant="h4" color={theme.palette.primary.main} fontWeight={700}>
+                    {viralityPercentage.toFixed(2)}%
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary" sx={{ marginLeft: '10px' }}>
+                    Overall Engagement (Likes, Comments, Retweets)
+                  </Typography>
                 </Box>
                 <Typography variant="body2" color="textSecondary" sx={{ marginTop: '16px' }}>
-                  Virality is calculated based on total interactions per post divided by the number of posts.
+                  Virality is calculated based on total interactions per post divided by the number
+                  of posts.
                 </Typography>
-                <Typography variant="body2" color="textSecondary" sx={{ marginTop: '8px' }} fontStyle="italic">
-                  A higher virality percentage indicates more engagement (likes, comments, retweets).
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  sx={{ marginTop: '8px' }}
+                  fontStyle="italic"
+                >
+                  A higher virality percentage indicates more engagement (likes, comments,
+                  retweets).
                 </Typography>
               </CardContent>
             )}

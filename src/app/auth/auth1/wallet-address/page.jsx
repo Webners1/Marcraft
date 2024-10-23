@@ -10,18 +10,20 @@ import TextField from '@mui/material/TextField';
 import PageContainer from '@/app/components/container/PageContainer';
 import Logo from '@/app/(DashboardLayout)/layout/shared/logo/Logo';
 import Image from 'next/image';
-import { authenticateWithTwitter, setWalletAddress } from '@/store/counter/counterSlice';
+import { setWalletAddress, walletAddressSetter } from '@/store/counter/counterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Register() {
   const dispatch = useDispatch();
+  const [walletAddress, setWalletAddressInput] = useState('');
+  const { token } = useSelector((state) => state.counter);
 
-  const handleTwitterLogin = async () => {
-    try {
-      // Trigger Twitter login
-      await dispatch(authenticateWithTwitter());
-    } catch (error) {
-      console.error('Twitter authentication failed', error);
+  const handleWalletSubmit = () => {
+    if (walletAddress) {
+      // Dispatch wallet address to the Redux store
+      dispatch(walletAddressSetter(walletAddress, token));
+    } else {
+      alert('Please enter a valid wallet address.');
     }
   };
 
@@ -95,10 +97,18 @@ export default function Register() {
               Welcome to Marcraft
             </Typography>
             <Typography variant="subtitle1" color="textSecondary" mb={3}>
-              Sign in with Twitter to continue
+              Enter your wallet address to complete registration
             </Typography>
-            <Button variant="contained" color="primary" onClick={handleTwitterLogin}>
-              Sign in with Twitter
+            <TextField
+              fullWidth
+              label="Wallet Address"
+              variant="outlined"
+              value={walletAddress}
+              onChange={(e) => setWalletAddressInput(e.target.value)}
+              sx={{ mb: 3 }}
+            />
+            <Button variant="contained" color="primary" onClick={handleWalletSubmit}>
+              Submit Wallet Address
             </Button>
             <Stack direction="row" spacing={1} mt={3} justifyContent="center">
               <Typography color="textSecondary" variant="h6" fontWeight="400">
