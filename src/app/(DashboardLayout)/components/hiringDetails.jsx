@@ -2,75 +2,63 @@
 import React from 'react';
 import {
     Grid,
-    Box,
-    Typography,
-    FormControl,
-    MenuItem,
-    RadioGroup,
-    FormControlLabel,
-    Button,
-    SliderValueLabelProps,
-    Paper,
+    Typography
+
 } from '@mui/material';
 
-import { SliderThumb } from '@mui/material/Slider';
-
-import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import PageContainer from '@/app/components/container/PageContainer';
-
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-
-import CustomTextField from '@/app/components/forms/theme-elements/CustomTextField';
-import CustomSelect from '@/app/components/forms/theme-elements/CustomSelect';
-import CustomSlider from '@/app/components/forms/theme-elements/CustomSlider';
-import CustomRangeSlider from '@/app/components/forms/theme-elements/CustomRangeSlider';
-import CustomSwitch from '@/app/components/forms/theme-elements/CustomSwitch';
-import CustomDisabledButton from '@/app/components/forms/theme-elements/CustomDisabledButton';
-import CustomOutlinedButton from '@/app/components/forms/theme-elements/CustomOutlinedButton';
-import CustomFormLabel from '@/app/components/forms/theme-elements/CustomFormLabel';
-import CustomCheckbox from '@/app/components/forms/theme-elements/CustomCheckbox';
-import CustomRadio from '@/app/components/forms/theme-elements/CustomRadio';
-import ParentCard from '@/app/components/shared/ParentCard';
-import { IconVolume, IconVolume2 } from '@tabler/icons-react';
-import { Stack } from '@mui/material';
-// import ReactQuill from 'react-quill';
-import { useTheme } from '@emotion/react';
 import styles from "./pricing.module.css"
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import Abi from '@/ABI/usdc.json';
 
 import './Quill.css';
 
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
-const ReactQuill = dynamic(
-    async () => {
-        const { default: RQ } = await import('react-quill');
-        // eslint-disable-next-line react/display-name
-        return ({ ...props }) => <RQ {...props} />;
-    },
-    {
-        ssr: false,
-    },
-);
 
 export default function HiringDetails() {
+    const { isConnected } = useAccount();
 
     const [title, setTitle] = React.useState("")
     const [price, setPrice] = React.useState("")
     const [description, setDescription] = React.useState("")
     const [socialHandles, setSocialHandles] = React.useState("")
 
-    const handleSubmit = (e) => {
+    const {
+        data: hash,
+        isPending,
+        writeContract
+    } = useWriteContract()
+
+    async function Approve() {
+        writeContract({
+            address: '0x86992460Fa8DF81da6c3ABf6e639D4914De6E4a1',
+            Abi,
+            functionName: 'approve',
+            args: ["0xA95d9A5259c52888d9bEEa3b0E3F0977205b75E3", BigInt(1)],
+        })
+    }
+
+    // const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    //     useWaitForTransactionReceipt({
+    //         hash,
+    //     })
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
         // Here you would typically handle the form submission,
         // such as sending the data to an API
+        writeContract({
+            address: '0x86992460Fa8DF81da6c3ABf6e639D4914De6E4a1',
+            abi: Abi,
+            functionName: 'approve',
+            args: ['0xA95d9A5259c52888d9bEEa3b0E3F0977205b75E3', BigInt(1000000000000000000)],
+        })
         console.log("Submitted:", { title, description })
         // Reset form fields after submission
-        setTitle("")
-        setDescription("")
+        // setTitle("")
+        // setDescription("")
     }
 
     return (
@@ -131,8 +119,13 @@ export default function HiringDetails() {
                             required
                         />
                     </div>
-                    <button type="submit" className={styles.button}>Hire</button>
-                    <ConnectButton />
+                    {
+                        isConnected
+                            ?
+                            <button type='submit' className={styles.button}>Hire</button>
+                            :
+                            <ConnectButton />
+                    }
                 </form>
             </div>
         </PageContainer >
