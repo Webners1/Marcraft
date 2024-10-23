@@ -53,7 +53,7 @@ export default function HiringDetails() {
             address: '0x86992460Fa8DF81da6c3ABf6e639D4914De6E4a1',
             abi: Abi,
             functionName: 'approve',
-            args: ['0xA95d9A5259c52888d9bEEa3b0E3F0977205b75E3', BigInt(1000000000000000000)],
+            args: ['0x0e5EF043c563Fb4B58f45dAd425795eeCA6c5066', BigInt(1000000000000000000)],
         })
         console.log("Submitted:", { title, description })
         // Reset form fields after submission
