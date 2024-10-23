@@ -34,6 +34,7 @@ const ProductPerformances = ({ products }) => {
   const {
     data: hash,
     isPending,
+    error,
     writeContract
   } = useWriteContract()
 
@@ -56,12 +57,12 @@ const ProductPerformances = ({ products }) => {
           address: '0x0e5EF043c563Fb4B58f45dAd425795eeCA6c5066',
           Abi,
           functionName: 'createAndFunded',
-          args: [_user, address, _transactionId, BigInt(1000000000000000000), BigInt(1000000000000000000), unixTimestamp],
+          args: [_user, address, _transactionId, BigInt("1000000000000000000"), BigInt(1000000000000000000), unixTimestamp],
         })
         
       }
     } catch (e) {
-      console.log(e)
+      console.log(error)
     }
   }
 
