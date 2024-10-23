@@ -12,9 +12,9 @@
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_transactionId",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "uint256",
@@ -32,7 +32,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "create",
+		"name": "createAndFunded",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -70,12 +70,12 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_transactionId",
-				"type": "uint256"
+				"type": "string"
 			}
 		],
-		"name": "Created",
+		"name": "CreatedAndFunded",
 		"type": "event"
 	},
 	{
@@ -96,34 +96,6 @@
 		],
 		"name": "Dispute",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_user",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_transactionId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_influincerFee",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_marketplaceFee",
-				"type": "uint256"
-			}
-		],
-		"name": "fund",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -193,9 +165,9 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "transactionId",
-				"type": "uint256"
+				"type": "string"
 			}
 		],
 		"name": "Released",
@@ -209,9 +181,9 @@
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_transactionId",
-				"type": "uint256"
+				"type": "string"
 			}
 		],
 		"name": "releaseUnlocked",
@@ -242,9 +214,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_transactionId",
-				"type": "uint256"
+				"type": "string"
 			}
 		],
 		"name": "getStatus",
@@ -286,9 +258,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_transactionId",
-				"type": "uint256"
+				"type": "string"
 			}
 		],
 		"name": "isUnlocked",
