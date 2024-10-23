@@ -44,10 +44,10 @@ const Banner = () => {
     <Box mb={10} sx={{ overflow: 'hidden' }}>
       <Container maxWidth="lg">
         <Grid container spacing={3} alignItems="center">
-          <Grid item xs={12} lg={6} sm={8}>
+          <Grid maxHeight={'100vh'}  item xs={12} lg={6} sm={8}>
             <BannerContent />
           </Grid>
-          {lgUp ? (
+          {/* {lgUp ? (
             <Grid item xs={12} lg={6}>
               <Box
                 p={3.2}
@@ -78,7 +78,7 @@ const Banner = () => {
                 </Stack>
               </Box>
             </Grid>
-          ) : null}
+          ) : null} */}
         </Grid>
       </Container>
     </Box>

@@ -20,10 +20,10 @@ export default function Landingpage() {
       <LpHeader />
       <Banner />
       <DemoSlider />
-      <Frameworks />
-      <Testimonial />
-      <Features />
-      <C2a />
+      {/* <Frameworks /> */}
+      {/* <Testimonial />
+      <Features /> */}
+      {/* <C2a /> */}
       <C2a2 />
       <Footer />
     </PageContainer>

@@ -12,27 +12,27 @@ import Image from 'next/image';
 
 const demos = [
   {
-    link: 'https://modernize-nextjs.adminmart.com/dashboards/modern',
-    img: '/images/landingpage/demos/demo-main.jpg',
+    link: '/explore',
+    img: 'https://t4.ftcdn.net/jpg/05/06/32/25/360_F_506322523_ZGKO5HLmrTVTy9eAZHbEwJb9Zqeaw9q5.jpg',
     btnText: "Explore",
     title: 'DeFi',
   },
   {
-    link: 'https://modernize-nextjs-dark.vercel.app/dashboards/influencer',
-    img: '/images/landingpage/demos/demo-main.jpg',
+    link: '/explore',
+    img: 'https://t4.ftcdn.net/jpg/04/92/37/43/240_F_492374306_KfNxLB6on75ReRynniZR9kHYq57FichR.jpg',
     btnText: "Explore",
     title: 'GameFi',
 
   },
   {
-    link: 'https://modernize-nextjs-horizontal.vercel.app/dashboards/modern',
-    img: '/images/landingpage/demos/demo-main.jpg',
+    link: '/explore',
+    img: 'https://t4.ftcdn.net/jpg/08/68/45/15/240_F_868451579_d0aMxXJLjwJPVZy4X9ljiLB4kw4dz0iX.jpg',
     btnText: "Explore",
     title: 'Web3 Mini-Apps',
   },
   {
-    link: '/',
-    img: '/images/landingpage/demos/demo-main.jpg',
+    link: '/explore',
+    img: 'https://t3.ftcdn.net/jpg/07/57/58/74/240_F_757587409_QTXnZLpD1nynTKc1OtqGirCdnDDaIDog.jpg',
     btnText: "Confused?",
     title: 'Explore All',
   },
