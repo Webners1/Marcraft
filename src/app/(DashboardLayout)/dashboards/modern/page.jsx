@@ -16,14 +16,21 @@ import ProductPerformances from '@/app/components/dashboards/influencer/ProductP
 export default function Dashboard() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { token } = useSelector((state) => state.counter);
 
   // Fetch data from Redux store
   const { profile, loading } = useSelector((state) => state.currentuser);
 
   useEffect(() => {
     // Dispatch the fetchUserProfile thunk to load the profile data
-    dispatch(fetchUserProfile());
-  }, [dispatch]);
+    if (token) {
+      dispatch(fetchUserProfile(token));
+    }
+  }, []);
+
+  if (!token) {
+    return null;
+  }
 
   // Handle loading state for profile and products
   if (loading) {
@@ -31,10 +38,10 @@ export default function Dashboard() {
   }
 
   // Extract data from the profile object in Redux
-  const earnings = profile?.totalEarnings || "$0";
-  const clients = profile?.clients || "0";
+  const earnings = profile?.totalEarnings || '$0';
+  const clients = profile?.clients || '0';
   const projects = profile?.projects || []; // Fetching the projects data from profile object
-  const activeProjects = profile?.activeProjects || "0";
+  const activeProjects = profile?.activeProjects || '0';
 
   // Handle back navigation
   const handleBackClick = () => {
@@ -98,8 +105,8 @@ export default function Dashboard() {
             <RevenueUpdates
               isLoading={loading}
               totalEarnings={earnings}
-              earningsThisMonth={profile?.earningsThisMonth || "$0"}
-              expensesThisMonth={profile?.expensesThisMonth || "$0"}
+              earningsThisMonth={profile?.earningsThisMonth || '$0'}
+              expensesThisMonth={profile?.expensesThisMonth || '$0'}
             />
           </Grid>
 

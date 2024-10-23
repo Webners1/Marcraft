@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Avatar from '@mui/material/Avatar';
 import { Grid, Rating, Box, Stack } from '@mui/material';
@@ -9,13 +9,13 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BlankCard from '../../../../components/shared/BlankCard';
 import { useRouter } from 'next/navigation';
 import { IconBrandTwitter, IconSearch } from '@tabler/icons-react';
 import InlineItemCard from '@/app/components/shared/InlineItemCard';
 import { useSelector, useDispatch } from 'react-redux'; // Import useSelector and useDispatch
-import { filterFriendsByCategory } from '@/store/friend/FriendSlice'; // Import filter action
+import { fetchFriends, filterFriendsByCategory } from '@/store/friend/FriendSlice'; // Import filter action
 
 const SocialIcons = [
   {
@@ -30,12 +30,22 @@ const getRandomColor = () => {
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
+const getRating = (key) => {
+  const ratingObject = {
+    Beginner: 1,
+    Intermediate: 3,
+    Expert: 5,
+  };
+  return ratingObject[key];
+};
+
 const FriendsCard = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  
+
   // Get profiles data from Redux, and ensure it's defined with a fallback to an empty array
   const profiles = useSelector((state) => state.friends.profiles || []);
+  const { token } = useSelector((state) => state.counter);
   const [search, setSearch] = useState('');
 
   // Handle search input
@@ -45,10 +55,19 @@ const FriendsCard = () => {
   };
 
   // Handle dynamic routing when clicking on a card
-  const handleCardClick = (username) => {
-    router.push(`/apps/user-profile/${username}`);
+  const handleCardClick = (id) => {
+    router.push(`/apps/user-profile/${id}`);
   };
-  
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchFriends(token));
+    }
+  }, []);
+
+  if (!token) {
+    return null;
+  }
 
   return (
     <>
@@ -87,7 +106,7 @@ const FriendsCard = () => {
         {/* Render profiles dynamically from Redux state */}
         {profiles.length > 0 ? ( // Ensure profiles array is not empty before mapping
           profiles.map((profile) => (
-            <Grid item sm={12} lg={4} key={profile.id} onClick={() => handleCardClick(profile.username)}>
+            <Grid item sm={12} lg={4} key={profile.id} onClick={() => handleCardClick(profile._id)}>
               <BlankCard className="hoverCard">
                 <CardContent>
                   <Stack direction={'column'} gap={2} alignItems="center">
@@ -105,7 +124,14 @@ const FriendsCard = () => {
                 <Box p={2} py={1} textAlign={'center'} sx={{ backgroundColor: 'grey.100' }}>
                   <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
                     <Box width={'50%'}>
-                      <Rating name="read-only" value={profile.rating} readOnly />
+                      <Rating
+                        name="read-only"
+                        value={getRating(
+                          profile.twitter_info.user_personality_analysis.experience_analysis
+                            .experience_level,
+                        )}
+                        readOnly
+                      />
                     </Box>
                     <Box width={'50%'}>
                       {SocialIcons.map((sicon) => (
@@ -115,14 +141,16 @@ const FriendsCard = () => {
                   </Box>
                   <InlineItemCard>
                     {/* Render each tag with a random color */}
-                    {profile.tags.map((tag, index) => (
-                      <Chip
-                        key={index}
-                        variant="outlined"
-                        label={tag}
-                        color={getRandomColor()} // Apply random color
-                      />
-                    ))}
+                    {profile.twitter_info.user_post_stats_and_virality.top_tags.map(
+                      (tag, index) => (
+                        <Chip
+                          key={index}
+                          variant="outlined"
+                          label={tag}
+                          color={getRandomColor()} // Apply random color
+                        />
+                      ),
+                    )}
                   </InlineItemCard>
                 </Box>
               </BlankCard>
