@@ -1,5 +1,6 @@
 import React from 'react';
 import dynamic from "next/dynamic";
+import { useRouter } from 'next/navigation'; // Importing useRouter for navigation
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useTheme } from '@mui/material/styles';
 import DashboardCard from '../../shared/DashboardCard';
@@ -14,12 +15,19 @@ import {
   TableHead,
   TableRow,
   Avatar,
-  Chip,
   TableContainer,
   Stack,
+  Chip,
+  Button,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const ProductPerformances = () => {
+const ProductPerformances = ({ products }) => {
+  const router = useRouter(); // Initialize the router
+
   // for select
   const [month, setMonth] = React.useState('1');
 
@@ -34,7 +42,6 @@ const ProductPerformances = () => {
   const primarylight = theme.palette.primary.light;
   const greylight = theme.palette.grey[100];
 
-  //   // chart 1
   const optionsrow1chart = {
     chart: {
       type: 'area',
@@ -66,132 +73,27 @@ const ProductPerformances = () => {
       enabled: false,
     },
   };
-  const seriesrow1chart = [
-    {
-      name: 'Customers',
-      color: primary,
-      data: [30, 25, 35, 20, 30],
-    },
-  ];
 
-  // chart 2
-  const optionsrow2chart = {
-    chart: {
-      type: 'area',
-      fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
-      toolbar: {
-        show: false,
-      },
-      height: 35,
-      width: 100,
-      sparkline: {
-        enabled: true,
-      },
-      group: 'sparklines',
-    },
-    stroke: {
-      curve: 'smooth',
-      width: 2,
-    },
-    fill: {
-      colors: [greylight],
-      type: 'solid',
-      opacity: 0.05,
-    },
-    markers: {
-      size: 0,
-    },
-    tooltip: {
-      enabled: false,
-    },
+  // Helper function to determine the color of the status chip
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'In Progress':
+        return { color: theme.palette.info.main, backgroundColor: theme.palette.info.light };
+      case 'Completed':
+        return { color: theme.palette.success.main, backgroundColor: theme.palette.success.light };
+      case 'Dispute':
+        return { color: theme.palette.error.main, backgroundColor: theme.palette.error.light };
+      case 'Offer':
+        return { color: theme.palette.warning.main, backgroundColor: theme.palette.warning.light };
+      default:
+        return { color: theme.palette.text.primary, backgroundColor: theme.palette.grey[200] };
+    }
   };
-  const seriesrow2chart = [
-    {
-      name: 'Customers',
-      color: grey,
-      data: [30, 25, 35, 20, 30],
-    },
-  ];
 
-  // chart 3
-  const optionsrow3chart = {
-    chart: {
-      type: 'area',
-      fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
-      toolbar: {
-        show: false,
-      },
-      height: 35,
-      width: 100,
-      sparkline: {
-        enabled: true,
-      },
-      group: 'sparklines',
-    },
-    stroke: {
-      curve: 'smooth',
-      width: 2,
-    },
-    fill: {
-      colors: [primarylight],
-      type: 'solid',
-      opacity: 0.05,
-    },
-    markers: {
-      size: 0,
-    },
-    tooltip: {
-      enabled: false,
-    },
+  // Handle navigation to offer details page
+  const handleViewOffer = (id) => {
+    router.push(`/offer/${id}`); // Navigate to the offer page with the unique offer ID
   };
-  const seriesrow3chart = [
-    {
-      name: 'Customers',
-      color: primary,
-      data: [30, 25, 35, 20, 30],
-    },
-  ];
-
-  // chart 4
-  const optionsrow4chart = {
-    chart: {
-      type: 'area',
-      fontFamily: "'Plus Jakarta Sans', sans-serif;",
-      foreColor: '#adb0bb',
-      toolbar: {
-        show: false,
-      },
-      height: 35,
-      width: 100,
-      sparkline: {
-        enabled: true,
-      },
-      group: 'sparklines',
-    },
-    stroke: {
-      curve: 'smooth',
-      width: 2,
-    },
-    fill: {
-      colors: [greylight],
-      type: 'solid',
-      opacity: 0.05,
-    },
-    markers: {
-      size: 0,
-    },
-    tooltip: {
-      enabled: false,
-    },
-  };
-  const seriesrow4chart = [
-    {
-      color: grey,
-      data: [30, 25, 35, 20, 30],
-    },
-  ];
 
   return (
     <DashboardCard
@@ -226,12 +128,7 @@ const ProductPerformances = () => {
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Progress
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2" fontWeight={600}>
-                  Priority
+                  Status
                 </Typography>
               </TableCell>
               <TableCell>
@@ -239,194 +136,74 @@ const ProductPerformances = () => {
                   Budget
                 </Typography>
               </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2" fontWeight={600}>
-                  Chart
-                </Typography>
-              </TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell sx={{ pl: 0 }}>
-                <Stack direction="row" spacing={2}>
-                  <Avatar src={"/images/products/s6.jpg"} variant="rounded" alt="productOne" sx={{ width: 48, height: 48 }} />
-                  <Box>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                    Gaming Console
-                    </Typography>
-                    <Typography color="textSecondary" fontSize="12px" variant="subtitle2">
-                    Electronics
-                    </Typography>
-                  </Box>
-                </Stack>
-              </TableCell>
-              <TableCell>
-                <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                  78.5%
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Chip
-                  sx={{
-                    bgcolor: (theme) => theme.palette.success.light,
-                    color: (theme) => theme.palette.success.main,
-                    borderRadius: '6px',
-                    width: 80,
-                  }}
-                  size="small"
-                  label="Low"
-                />
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2">$3.9k</Typography>
-              </TableCell>
-              <TableCell>
-                <Chart
-                  options={optionsrow1chart}
-                  series={seriesrow1chart}
-                  type="area"
-                  height="35px"
-                  width="100px"
-                />
-              </TableCell>
-            </TableRow>
-            {/* 2 */}
-            <TableRow>
-              <TableCell sx={{ pl: 0 }}>
-                <Stack direction="row" spacing={2}>
-                  <Avatar src={"/images/products/s9.jpg"} variant="rounded" alt="productTwo" sx={{ width: 48, height: 48 }} />
-                  <Box>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                    Leather Purse
-                    </Typography>
-                    <Typography color="textSecondary" fontSize="12px" variant="subtitle2">
-                    Fashion
-                    </Typography>
-                  </Box>
-                </Stack>
-              </TableCell>
-              <TableCell>
-                <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                  58.6%
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Chip
-                  sx={{
-                    bgcolor: (theme) => theme.palette.warning.light,
-                    color: (theme) => theme.palette.warning.main,
-                    borderRadius: '6px',
-                    width: 80,
-                  }}
-                  size="small"
-                  label="Medium"
-                />
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2">$3.5k</Typography>
-              </TableCell>
-              <TableCell>
-                <Chart
-                  options={optionsrow2chart}
-                  series={seriesrow2chart}
-                  type="area"
-                  height="35px"
-                  width="100px"
-                />
-              </TableCell>
-            </TableRow>
-            {/* 3 */}
-            <TableRow>
-              <TableCell sx={{ pl: 0 }}>
-                <Stack direction="row" spacing={2}>
-                  <Avatar src={"/images/products/s7.jpg"} variant="rounded" alt="productThree" sx={{ width: 48, height: 48 }} />
-                  <Box>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                    Red Velvate Dress
-                    </Typography>
-                    <Typography color="textSecondary" fontSize="12px" variant="subtitle2">
-                    Womens Fashion
-
-                    </Typography>
-                  </Box>
-                </Stack>
-              </TableCell>
-              <TableCell>
-                <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                  25%
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Chip
-                  sx={{
-                    bgcolor: (theme) => theme.palette.primary.light,
-                    color: (theme) => theme.palette.primary.main,
-                    borderRadius: '6px',
-                    width: 80,
-                  }}
-                  size="small"
-                  label="Very High"
-                />
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2">$3.5k</Typography>
-              </TableCell>
-              <TableCell>
-                <Chart
-                  options={optionsrow3chart}
-                  series={seriesrow3chart}
-                  type="area"
-                  height="35px"
-                  width="100px"
-                />
-              </TableCell>
-            </TableRow>
-            {/* 4 */}
-            <TableRow>
-              <TableCell sx={{ pl: 0 }}>
-                <Stack direction="row" spacing={2}>
-                  <Avatar src={"/images/products/s4.jpg"} variant="rounded" alt="productFour" sx={{ width: 48, height: 48 }} />
-                  <Box>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                    Headphone Boat
-                    </Typography>
-                    <Typography color="textSecondary" fontSize="12px" variant="subtitle2">
-                    Electronics
-                    </Typography>
-                  </Box>
-                </Stack>
-              </TableCell>
-              <TableCell>
-                <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                  96.3%
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Chip
-                  sx={{
-                    bgcolor: (theme) => theme.palette.error.light,
-                    color: (theme) => theme.palette.error.main,
-                    borderRadius: '6px',
-                    width: 80,
-                  }}
-                  size="small"
-                  label="High"
-                />
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2">$3.5k</Typography>
-              </TableCell>
-              <TableCell>
-                <Chart
-                  options={optionsrow4chart}
-                  series={seriesrow4chart}
-                  type="area"
-                  height="35px"
-                  width={"100%"}
-                />
-              </TableCell>
-            </TableRow>
+            {products.map((product, index) => (
+              <React.Fragment key={index}>
+                <TableRow>
+                  <TableCell sx={{ pl: 0 }}>
+                    <Stack direction="row" spacing={2}>
+                      <Avatar src={product.image} variant="rounded" alt={product.name} sx={{ width: 48, height: 48 }} />
+                      <Box>
+                        <Typography variant="subtitle2" fontWeight={600}>
+                          {product.name}
+                        </Typography>
+                        <Typography color="textSecondary" fontSize="12px" variant="subtitle2">
+                          {product.category}
+                        </Typography>
+                      </Box>
+                    </Stack>
+                  </TableCell>
+                  <TableCell>
+                    <Chip
+                      label={product.status}
+                      sx={{
+                        color: getStatusColor(product.status).color,
+                        backgroundColor: getStatusColor(product.status).backgroundColor,
+                        fontWeight: 500,
+                      }}
+                      size="small"
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2">{product.budget}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    {product.status === 'Offer' && (
+                      <Button
+                        variant="contained"
+                        size="small"
+                        onClick={() => handleViewOffer(product.id)} // Pass the unique offer ID for navigation
+                      >
+                        View Offer
+                      </Button>
+                    )}
+                  </TableCell>
+                </TableRow>
+                {product.status === 'Offer' && (
+                  <TableRow>
+                    <TableCell colSpan={4}>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                        >
+                          <Typography>Offer Details</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography><strong>Description:</strong> {product.description}</Typography>
+                          <Typography><strong>Budget/Amount:</strong> {product.budget}</Typography>
+                          <Typography><strong>Clients/By Whom:</strong> {product.clients}</Typography>
+                        </AccordionDetails>
+                      </Accordion>
+                    </TableCell>
+                  </TableRow>
+                )}
+              </React.Fragment>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

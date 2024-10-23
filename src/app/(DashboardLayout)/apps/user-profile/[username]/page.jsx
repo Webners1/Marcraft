@@ -241,11 +241,18 @@ export default function UserProfile({ params }) {
           </Box>
 
           <Box mb={3}>
-            <ChildCard>
-              <Typography fontWeight={600} variant="h5" mb={2}>Images-Content Ratio</Typography>
-              <Chart options={optionspiechart} series={seriespiechart} type="pie" height="300px" width="100%" />
-            </ChildCard>
-          </Box>
+  <ChildCard>
+    <Typography fontWeight={600} variant="h5" mb={2}>Images-Content Ratio</Typography>
+    
+    {/* The Pie Chart for Images-Content Ratio */}
+    <Chart options={optionspiechart} series={seriespiechart} type="pie" height="300px" width="100%" />
+
+    {/* Note about Images-Content Ratio */}
+    <Typography variant="body2" color="textSecondary" mt={2} fontStyle="italic">
+      The Images-Content Ratio refers to the proportion of images to textual content in posts. A higher ratio indicates a greater emphasis on visual media, while a lower ratio suggests more text-heavy posts.
+    </Typography>
+  </ChildCard>
+</Box>
 
           <Box mb={3}>
             <ChildCard>
@@ -263,11 +270,18 @@ export default function UserProfile({ params }) {
           </Box>
 
           <Box mb={3}>
-            <ChildCard>
-              <Typography fontWeight={600} variant="h5" mb={2}>Sentiment Analysis of Posts</Typography>
-              <Chart options={optionsSentimentChart} series={seriesSentimentChart} type="pie" height="300px" />
-            </ChildCard>
-          </Box>
+  <ChildCard>
+    <Typography fontWeight={600} variant="h5" mb={2}>Sentiment Analysis of Posts</Typography>
+    
+    {/* The Chart for sentiment analysis */}
+    <Chart options={optionsSentimentChart} series={seriesSentimentChart} type="pie" height="300px" />
+
+    {/* Note about sentiment analysis */}
+    <Typography variant="body2" color="textSecondary" mt={2} fontStyle="italic">
+      Positive sentiment refers to posts that express favorable or optimistic opinions, while negative sentiment indicates posts that convey unfavorable or critical opinions.
+    </Typography>
+  </ChildCard>
+</Box>
         </Grid>
 
         {/* Category Percentages and Matches Tabs */}
@@ -296,24 +310,82 @@ export default function UserProfile({ params }) {
     </Box>
 
     {/* Category Percentages Tab */}
-    {tabIndex2 === 0 && (
-      <CardContent sx={{ padding: '24px' }}>
-        <Typography variant="h5" fontWeight={600} gutterBottom>
-          Tweet Category Distribution for {profile.name}
-        </Typography>
-        <Chart options={pieChartOptions} series={pieChartSeries} type="pie" height="300px" />
-      </CardContent>
-    )}
+{tabIndex2 === 0 && (
+  <CardContent sx={{ padding: '24px' }}>
+    <Typography variant="h5" fontWeight={600} gutterBottom>
+      Tweet Category Distribution for {profile.name}
+    </Typography>
+    
+    {/* The Pie Chart for Tweet Category Distribution */}
+    <Chart options={pieChartOptions} series={pieChartSeries} type="pie" height="300px" />
+
+    {/* Note about Tweet Category Distribution */}
+    <Typography variant="body2" color="textSecondary" mt={2} fontStyle="italic">
+      This chart displays the distribution of {profile.name}'s tweets across different categories. Each category represents a particular theme or subject, providing insights into the types of content shared most frequently.
+    </Typography>
+  </CardContent>
+)}
+
 
     {/* Category Matches Tab */}
     {tabIndex2 === 1 && (
-      <CardContent sx={{ padding: '24px' }}>
-        <Typography variant="h5" fontWeight={600} gutterBottom>
-          Tag & Content Matches for {profile.name}
+  <CardContent sx={{ padding: '24px' }}>
+    <Typography variant="h5" fontWeight={600} gutterBottom>
+      Tag & Content Matches for {profile.name}
+    </Typography>
+    
+    {/* Bar Chart for Tag & Content Matches */}
+    <Chart 
+      options={barChartOptions} 
+      series={[
+        { 
+          name: 'Tag & Content Matches', 
+          data: Object.values(category_matches).map((match) => match.tag_and_content_matches || 0) // Ensuring we handle missing data
+        },
+        { 
+          name: 'URL Matches', 
+          data: Object.values(category_matches).map((match) => match.url_matches ? match.url_matches.length : 0) // Displaying URL Matches count per category
+        },
+      ]} 
+      type="bar" 
+      height="300px" 
+    />
+    
+    {/* Displaying URLs by Category */}
+    <Typography variant="h6" fontWeight={600} sx={{ marginTop: '24px' }}>
+      URL Matches by Category
+    </Typography>
+    {Object.keys(category_matches).map((category, index) => (
+      <Box key={index} mb={2}>
+        <Typography variant="subtitle1" fontWeight={600}>
+          {category}
         </Typography>
-        <Chart options={barChartOptions} series={barChartSeries} type="bar" height="300px" />
-      </CardContent>
-    )}
+        <List>
+          {category_matches[category].url_matches && category_matches[category].url_matches.length > 0 ? (
+            category_matches[category].url_matches.map((url, urlIndex) => (
+              <ListItem key={urlIndex}>
+                <ListItemIcon>
+                  <LinkIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary={url} />
+              </ListItem>
+            ))
+          ) : (
+            <Typography variant="body2" color="textSecondary">No URLs found for this category</Typography>
+          )}
+        </List>
+      </Box>
+    ))}
+    
+    {/* Note explaining Tag & Content Matches */}
+    <Typography variant="body2" color="textSecondary" sx={{ marginTop: '16px' }} fontStyle="italic">
+      This chart displays the frequency of specific tags or keywords appearing in {profile.name}'s posts. It helps analyze how often certain themes or topics are covered in the content.
+    </Typography>
+  </CardContent>
+)}
+
+
+
 
     {/* Top 5 URLs Tab */}
     {tabIndex2 === 2 && (
@@ -376,6 +448,9 @@ export default function UserProfile({ params }) {
                 <Typography variant="body2" color="textSecondary" sx={{ marginTop: '16px' }}>
                   Virality is calculated based on total interactions per post divided by the number of posts.
                 </Typography>
+                <Typography variant="body2" color="textSecondary" sx={{ marginTop: '8px' }} fontStyle="italic">
+      A higher virality percentage indicates that posts are receiving more engagement (likes, comments, and retweets), showing how widely a post resonates with the audience.
+    </Typography>
               </CardContent>
             )}
           </Card>

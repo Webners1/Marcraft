@@ -11,6 +11,7 @@ import emailReducer from './apps/email/EmailSlice';
 import ticketReducer from './apps/tickets/TicketSlice';
 import contactsReducer from './apps/contacts/ContactSlice';
 import userProfileReducer from './apps/userProfile/UserProfileSlice'; // Consistent naming
+import CurrentProfileReducer from './apps/userProfile/CurrentProfile'; // Consistent naming
 import blogReducer from './apps/blog/BlogSlice';
 import friendsReducer from './friend/FriendSlice'; // Import friends reducer
 
@@ -33,6 +34,7 @@ export const store = configureStore({
     notes: notesReducer, // Fix the duplicate reducer issue
     friends: friendsReducer, // Friends reducer
     contacts: contactsReducer,
+    currentuser: CurrentProfileReducer,
     ticket: ticketReducer,
     userProfile: userProfileReducer, // Consistent naming
     blog: blogReducer,
