@@ -18,6 +18,7 @@ import {
 } from '@tabler/icons-react';
 import BlankCard from '../../../shared/BlankCard';
 import React from 'react';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 // Styled component for the profile image
 const ProfileImage = styled(Box)(() => ({
@@ -32,7 +33,7 @@ const ProfileImage = styled(Box)(() => ({
 }));
 
 // ProfileBanner component with dynamic props
-const ProfileBanner = ({ name, job, avatar, coverImage, posts, followers, following, socialLinks }) => {
+const ProfileBanner = ({ name, job, avatar, coverImage, posts, followers, following, socialLinks, isWallet }) => {
   return (
     <BlankCard>
       {/* Dynamic Cover Image */}
@@ -58,7 +59,7 @@ const ProfileBanner = ({ name, job, avatar, coverImage, posts, followers, follow
               <Typography color="text.secondary">
                 <IconFileDescription width="20" />
               </Typography>
-           
+
             </Box>
             <Box>
               <Typography color="text.secondary">
@@ -162,9 +163,15 @@ const ProfileBanner = ({ name, job, avatar, coverImage, posts, followers, follow
                 <IconBrandYoutube size="18" />
               </Fab>
             )}
-            <Button href='/hiringForm' color="primary" variant="contained">
-              Hiring?
-            </Button>
+            {
+              isWallet
+                ?
+                <ConnectButton />
+                :
+                <Button href='/hiringForm' color="primary" variant="contained">
+                  Hiring?
+                </Button>
+            }
           </Stack>
         </Grid>
       </Grid>

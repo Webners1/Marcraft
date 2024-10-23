@@ -41,18 +41,18 @@ const C2a2 = () => {
         <Container maxWidth="lg">
           <Grid container justifyContent="space-between" spacing={3}>
             <Grid item xs={12} sm={12} lg={5}>
-              <Typography variant="h2" color="background.paper" fontWeight={700} mt={4}>
-                Build your app with our highly customizable NextJs based Dashboard
+              <Typography variant="h1" color="background.paper" fontWeight={700} mt={4}>
+                Build your platform with our highly skilled Marketing Influincers
               </Typography>
 
-              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} mt={3}>
+              {/* <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} mt={3}>
                 <StyledButton variant="contained" color="inherit" href="/auth/auth1/login">
                   Login
                 </StyledButton>
                 <StyledButton2 variant="outlined" color="inherit" href="/auth/auth1/register">
                   Register
                 </StyledButton2>
-              </Stack>
+              </Stack> */}
             </Grid>
             <Grid item xs={12} lg={5}>
               <Box

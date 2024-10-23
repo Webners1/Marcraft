@@ -24,9 +24,48 @@ import {
   AccordionDetails,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import Abi from '@/ABI/escrow.json';
 
 const ProductPerformances = ({ products }) => {
   const router = useRouter(); // Initialize the router
+  const { address, isConnected } = useAccount();
+
+  const {
+    data: hash,
+    isPending,
+    writeContract
+  } = useWriteContract()
+
+  const createAndFund = async (_user, _transactionId, _influincerFee) => {
+    try {
+      const formattedString = _influincerFee;
+      const InfFee = formattedString.replace(/[^0-9]/g, '');
+      // _transactionId =  // Removes all non-numeric characters
+      let mrktFee = (InfFee / 100) * 2.5;
+      mrktFee = mrktFee.toFixed(18);
+      const currentDate = new Date();
+      const daysAhead = 60 * 24 * 60 * 60 * 1000;
+      const futureDate = new Date(currentDate.getTime() + daysAhead); // timestamp
+      const unixTimestamp = Math.floor(futureDate.getTime() / 1000);
+      console.log('asas')
+      if (isConnected && address) {
+        console.log(BigInt(InfFee * 10 ** 18), BigInt(mrktFee * 10 ** 18), unixTimestamp, address)
+
+        writeContract({
+          address: '0x0e5EF043c563Fb4B58f45dAd425795eeCA6c5066',
+          Abi,
+          functionName: 'createAndFunded',
+          args: [_user, address, _transactionId, BigInt(1000000000000000000), BigInt(1000000000000000000), unixTimestamp],
+        })
+        
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  console.log(products)
 
   // for select
   const [month, setMonth] = React.useState('1');
@@ -136,7 +175,11 @@ const ProductPerformances = ({ products }) => {
                   Budget
                 </Typography>
               </TableCell>
-              <TableCell></TableCell>
+              <TableCell>
+                <Typography variant="subtitle2" fontWeight={600}>
+                  Offer
+                </Typography>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -175,9 +218,9 @@ const ProductPerformances = ({ products }) => {
                       <Button
                         variant="contained"
                         size="small"
-                        onClick={() => handleViewOffer(product.id)} // Pass the unique offer ID for navigation
+                        onClick={() => createAndFund('0x7DBc6A0A0a8a497462c14dA7f8D1971ae9D66381', product.id, product.budget)} // Pass the unique offer ID for navigation
                       >
-                        View Offer
+                        Accept Offer
                       </Button>
                     )}
                   </TableCell>

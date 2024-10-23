@@ -19,7 +19,7 @@ const BannerContent = () => {
   const lgDown = useMediaQuery((theme) => theme.breakpoints.down('lg'));
 
   return (
-    <Box mt={lgDown ? 8 : 0}>
+    <Box mt={lgDown ? 8 : 12}>
       <motion.div
         initial={{ opacity: 0, translateY: 550 }}
         animate={{ opacity: 1, translateY: 0 }}
@@ -86,7 +86,7 @@ const BannerContent = () => {
             Login
           </StyledButton>
 
-          <StyledButton variant="outlined" href="#demos">
+          <StyledButton variant="outlined" href="/explore">
             Discover
           </StyledButton>
         </Stack>

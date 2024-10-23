@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux';
 import Link from "next/link";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
+import typography from '@/utils/theme/Typography';
+import { Typography } from '@mui/material';
 
 const Logo = () => {
   const customizer = useSelector((state) => state.customizer);
@@ -9,28 +11,23 @@ const Logo = () => {
     height: customizer.TopbarHeight,
     width: customizer.isCollapse ? "40px" : "180px",
     overflow: "hidden",
-    display: "block",
+    display: "flex",
+    alignItems: "center"
   }));
 
   if (customizer.activeDir === "ltr") {
     return (
       <LinkStyled href="/">
         {customizer.activeMode === "dark" ? (
-          <Image
-            src="/images/logos/light-logo.svg"
-            alt="logo"
-            height={customizer.TopbarHeight}
-            width={174}
-            priority
-          />
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <Image src='/images/logos/logoIcon.svg' alt="icon" width={35} height={35} />
+            <Typography variant="h4" color={"white"}>Marcraft</Typography>
+          </div>
         ) : (
-          <Image
-            src={"/images/logos/dark-logo.svg"}
-            alt="logo"
-            height={customizer.TopbarHeight}
-            width={174}
-            priority
-          />
+          <div style={{ display: "flex", alignItems: "center",  gap: "0.5rem" }}>
+            <Image src='/images/logos/logoIcon.svg' alt="icon" width={35} height={35} />
+            <Typography variant="h4" color={"white"}>Marcraft</Typography>
+          </div>
         )}
       </LinkStyled>
     );
@@ -39,21 +36,15 @@ const Logo = () => {
   return (
     <LinkStyled href="/">
       {customizer.activeMode === "dark" ? (
-        <Image
-          src="/images/logos/dark-rtl-logo.svg"
-          alt="logo"
-          height={customizer.TopbarHeight}
-          width={174}
-          priority
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <Image src='/images/logos/logoIcon.svg' alt="icon" width={35} height={35} />
+          <Typography variant="h4" color={"white"}>Marcraft</Typography>
+        </div>
       ) : (
-        <Image
-          src="/images/logos/light-logo-rtl.svg"
-          alt="logo"
-          height={customizer.TopbarHeight}
-          width={174}
-          priority
-        />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <Image src='/images/logos/logoIcon.svg' alt="icon" width={35} height={35} />
+          <Typography variant="h4" color={"white"}>Marcraft</Typography>
+        </div>
       )}
     </LinkStyled>
   );
