@@ -12,11 +12,6 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import Abi from '@/ABI/usdc.json';
 
-import './Quill.css';
-
-import dynamic from 'next/dynamic';
-import 'react-quill/dist/quill.snow.css';
-
 export default function HiringDetails() {
     const { isConnected } = useAccount();
 
