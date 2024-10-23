@@ -86,7 +86,7 @@ const BannerContent = () => {
             Login
           </StyledButton>
 
-          <StyledButton variant="outlined" href="#demos">
+          <StyledButton variant="outlined" href="/explore">
             Discover
           </StyledButton>
         </Stack>
