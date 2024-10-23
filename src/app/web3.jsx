@@ -5,7 +5,7 @@ import {
 } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
 import {
-    arbitrumSepolia
+    sepolia
 } from 'wagmi/chains';
 import {
     QueryClientProvider,
@@ -16,7 +16,7 @@ import { useEffect } from "react";
 const config = getDefaultConfig({
     appName: 'Marcraft',
     projectId: '1ab35f9964fde96f776376c814e10570',
-    chains: [arbitrumSepolia],
+    chains: [sepolia],
     ssr: true, // If your dApp uses server side rendering (SSR)
 });
 
