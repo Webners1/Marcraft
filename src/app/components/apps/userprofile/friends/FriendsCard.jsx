@@ -45,9 +45,10 @@ const FriendsCard = () => {
 
   // Get profiles data from Redux, and ensure it's defined with a fallback to an empty array
   const profiles = useSelector((state) => state.friends.profiles || []);
-  const { token } = useSelector((state) => state.counter);
   const [search, setSearch] = useState('');
-console.log(profiles)
+
+  console.log(profiles);
+
   // Handle search input
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
@@ -60,14 +61,8 @@ console.log(profiles)
   };
 
   useEffect(() => {
-    if (token) {
-      dispatch(fetchFriends(token));
-    }
+    dispatch(fetchFriends());
   }, []);
-
-  if (!token) {
-    return null;
-  }
 
   return (
     <>

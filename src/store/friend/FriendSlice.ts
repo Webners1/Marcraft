@@ -2,13 +2,9 @@ import axiosInstance from '@/config/axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Async thunk to fetch user data from the API
-export const fetchFriends = createAsyncThunk('friends/fetchFriends', async (token) => {
+export const fetchFriends = createAsyncThunk('friends/fetchFriends', async () => {
   try {
-    const response = await axiosInstance.get('/user/influencers', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.get('/user/influencers');
     return response.data;
   } catch (error) {
     console.error('fetch friends unsuccessful', error);

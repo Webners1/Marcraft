@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserProfile, clearUserProfile, fetchIndividualInfluencer } from '@/store/apps/userProfile/UserProfileSlice';
+import {
+  setUserProfile,
+  clearUserProfile,
+  fetchIndividualInfluencer,
+} from '@/store/apps/userProfile/UserProfileSlice';
 import PageContainer from '@/app/components/container/PageContainer';
 import ProfileBanner from '@/app/components/apps/userprofile/profile/ProfileBanner';
 import IntroCard from '@/app/components/apps/userprofile/profile/IntroCard';
@@ -37,15 +41,13 @@ const getRandomColorClass = () => colorClasses[Math.floor(Math.random() * colorC
 export default function UserProfile({ params }) {
   const { id } = params;
   const dispatch = useDispatch();
+  const { profile, loading, error } = useSelector((state) => state.userProfile);
   const [tabIndex, setTabIndex] = useState(0);
   const [tabIndex2, setTabIndex2] = useState(0);
 
-  const { token } = useSelector((state) => state.counter);
-  const { profile, loading, error } = useSelector((state) => state.userProfile);
-
   useEffect(() => {
-    if (id && token) {
-      dispatch(fetchIndividualInfluencer(id, token));
+    if (id) {
+      dispatch(fetchIndividualInfluencer(id));
     }
 
     return () => {

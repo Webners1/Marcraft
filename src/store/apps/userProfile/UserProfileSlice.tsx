@@ -1,13 +1,9 @@
 import axiosInstance from '@/config/axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const fetchIndividualInfluencer = createAsyncThunk('get/influencer', async (id, token) => {
+export const fetchIndividualInfluencer = createAsyncThunk('get/influencer', async (id) => {
   try {
-    const response = await axiosInstance.get(`/user/influencer/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.get(`/user/influencer/${id}`);
     return response.data;
   } catch (error) {
     console.error('fetch friend unsuccessful', error);
