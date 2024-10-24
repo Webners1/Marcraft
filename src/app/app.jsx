@@ -40,11 +40,7 @@ const MyApp = ({ children }) => {
   const { user, token } = useSelector((state) => state.counter);
   const [isLoading, setIsLoading] = useState(true);
 
-  const protectedRoutes = [
-    '/dashboards/modern',
-    '/hiringForm',
-    '/auth/auth1/wallet-address',
-  ];
+  const protectedRoutes = ['/dashboards/modern', '/hiringForm', '/auth/auth1/wallet-address'];
   const authRoutes = ['/auth/auth1/login', '/auth/auth1/register', '/auth/auth1/wallet-address'];
 
   const authenticate = async () => {
