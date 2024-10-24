@@ -43,8 +43,6 @@ const MyApp = ({ children }) => {
   const protectedRoutes = [
     '/dashboards/modern',
     '/hiringForm',
-    '/explore',
-    '/apps/user-profile/profile',
     '/auth/auth1/wallet-address',
   ];
   const authRoutes = ['/auth/auth1/login', '/auth/auth1/register', '/auth/auth1/wallet-address'];
@@ -73,7 +71,7 @@ const MyApp = ({ children }) => {
         }
 
         if (authRoutes.includes(pathname)) {
-          router.push('/dashboards/modern');
+          router.push('/explore');
         }
       } else if (protectedRoutes.includes(pathname)) {
         router.push('/auth/auth1/register');
