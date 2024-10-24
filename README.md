@@ -1,40 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Marcraft Banner](https://i.ibb.co/LQmfXMZ/a-logo-for-a-web3-influencer-marketplace-named-mar-G9-M2-ZEtp-Q0-Obu-Ppf-MWXDc-Q-MGNo4-OHf-Ry-t-ZRc1.png)
 
-## Getting Started
+# Marcraft: Revolutionizing Hiring in Web3
 
-First, run the development server:
+Marcraft is a cutting-edge marketplace that transforms how businesses find and collaborate with Web3 professionals. By combining advanced data analytics with blockchain technology, Marcraft provides businesses with deep insights to make informed hiring decisions. Whether you’re looking for content creators, community managers, or other specialists, Marcraft empowers you to hire the best talent with confidence.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Data-Driven Insights**: Gain access to critical metrics such as engagement rates, content quality scores, and the impact of past projects to make well-informed decisions.
+- **Blockchain Transparency**: Marcraft leverages blockchain technology to ensure a secure and transparent hiring process. All interactions are supported by smart contracts, guaranteeing automatic service agreements and payments.
+- **Portfolio Showcases**: Service providers can display their portfolios and skillsets, allowing businesses to review their work and understand their performance metrics.
+- **Reputation Insights**: Understand a professional's standing in the Web3 community with reputation metrics that offer transparency and trust.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Why Marcraft?
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Marcraft provides more than just a marketplace—it offers **unprecedented transparency and data-driven confidence**. By merging blockchain and data analytics, businesses can eliminate uncertainty and hire professionals with proven track records. We ensure that businesses make decisions based on reliable data, empowering them to confidently choose creators and community managers that align with their goals.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+With Marcraft, businesses can:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Eliminate Guesswork**: Let data guide your hiring decisions.
+- **Ensure Transparency**: Smart contracts enable secure, automated agreements and payments.
+- **Build Trust**: Reputation insights offer clarity on each service provider's standing in the Web3 space.
 
-## Learn More
+## Technology Stack
 
-To learn more about Next.js, take a look at the following resources:
+Marcraft is built on modern, scalable technologies that ensure performance and reliability. The platform utilizes the following technologies:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Next.js**: A React-based framework for building fast, scalable, and dynamic web applications.
+- **Solidity**: The programming language used to write secure and efficient smart contracts on the Ethereum blockchain.
+- **MongoDB**: A NoSQL database that provides flexible, scalable data storage for dynamic content and user data.
+- **Express**: A minimal, flexible Node.js web application framework for handling the backend and API routes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Running the Project
 
-## Deploy on Vercel
+To get the Marcraft project running locally, follow these steps:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequisites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Ensure you have the following installed on your local machine:
+
+- **Node.js** (v14 or higher)
+- **npm** or **yarn** (package manager)
+- **MongoDB** (running locally or using a MongoDB Atlas connection)
+- **Solidity development environment** (e.g., Hardhat or Truffle)
+
+### Installation Steps
+
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/marcraft.git
+    cd marcraft
+    ```
+
+2. **Install dependencies**:
+   Using npm:
+    ```bash
+    npm install
+    ```
+   Or, if you use yarn:
+    ```bash
+    yarn install
+    ```
+
+3. **Set up environment variables**:
+   Create a `.env` file in the root of the project with the following values:
+   
+   ```bash
+   MONGODB_URI=mongodb://localhost:27017/marcraft
+   NEXT_PUBLIC_API_URL=http://localhost:3000/api
