@@ -47,7 +47,7 @@ const FriendsCard = () => {
   const profiles = useSelector((state) => state.friends.profiles || []);
   const { token } = useSelector((state) => state.counter);
   const [search, setSearch] = useState('');
-
+console.log(profiles)
   // Handle search input
   const handleSearchChange = (e) => {
     setSearch(e.target.value);

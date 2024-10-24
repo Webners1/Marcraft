@@ -6,8 +6,8 @@ import "./global.css";
 
 
 export const metadata = {
-  title: 'Marcraft Main Demo',
-  description: 'Marcraft Main kit',
+  title: 'Marcraft',
+  description: 'Marcraft',
 }
 
 export default function RootLayout({ children }) {
