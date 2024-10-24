@@ -44,7 +44,7 @@ const Navigations = () => {
 
     return (
         <>
-            <StyledButton color="inherit" variant="text" href="https://demos.adminmart.com/premium/nextjs/modernize-nextjs/docs/index.html">
+            <StyledButton color="inherit" variant="text" href="/">
                 Documentation
             </StyledButton>
             <Button color="primary" variant="contained" href="/auth/auth1/login">
