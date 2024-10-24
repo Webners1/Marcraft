@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+'use client'; // Mark this component as a Client Component
 
-// third party
+import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion, useAnimation } from 'framer-motion';
 

@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { styled } from '@mui/material/styles';
-import { IconRocket } from '@tabler/icons-react';
+import { IconRocket, IconChartBar, IconUsers } from '@tabler/icons-react';
 
 // third party
 import { motion } from 'framer-motion';
@@ -20,6 +20,7 @@ const BannerContent = () => {
 
   return (
     <Box mt={lgDown ? 8 : 12}>
+      {/* Banner Section */}
       <motion.div
         initial={{ opacity: 0, translateY: 550 }}
         animate={{ opacity: 1, translateY: 0 }}
@@ -50,11 +51,12 @@ const BannerContent = () => {
         >
           First Ever <br />
           <Typography component={'span'} variant="inherit" color={'primary'}>
-            WEB3 INFLUINCERS
+            WEB3 INFLUENCERS
           </Typography>{' '}
           Marketplace
         </Typography>
       </motion.div>
+      
       <Box pt={4} pb={3}>
         <motion.div
           initial={{ opacity: 0, translateY: 550 }}
@@ -67,10 +69,11 @@ const BannerContent = () => {
           }}
         >
           <Typography variant="h5" fontWeight={300}>
-            Infinder Marketplace helps you choose the perfect Marketing partner for your next Web3 Product.
+            Marcraft Marketplace helps you choose the perfect Marketing partner for your next Web3 Product.
           </Typography>
         </motion.div>
       </Box>
+
       <motion.div
         initial={{ opacity: 0, translateY: 550 }}
         animate={{ opacity: 1, translateY: 0 }}
@@ -91,6 +94,9 @@ const BannerContent = () => {
           </StyledButton>
         </Stack>
       </motion.div>
+
+      {/* New "What We Do" Section */}
+   
     </Box>
   );
 };
