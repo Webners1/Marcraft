@@ -7,7 +7,6 @@ import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts } from '@/store/apps/influencer/influencerSlice';
 import Link from 'next/link';
 import BlankCard from '../../../shared/BlankCard';
 import Image from 'next/image';
@@ -17,7 +16,6 @@ const ProductRelated = () => {
 
   // Get Product
   React.useEffect(() => {
-    dispatch(fetchProducts());
   }, [dispatch]);
 
   const filterRelatedProduct = (products) => {

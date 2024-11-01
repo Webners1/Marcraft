@@ -13,7 +13,6 @@ import "./Carousel.css"
 
 
 //fetch product
-import { fetchProducts } from '@/store/apps/influencer/influencerSlice';
 import Image from 'next/image';
 
 const ProductCarousel = () => {
@@ -27,7 +26,6 @@ const ProductCarousel = () => {
 
   // Get Product
   useEffect(() => {
-    dispatch(fetchProducts());
   }, [dispatch, pathName, searchParams]);
 
   // Get Products

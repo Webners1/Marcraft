@@ -16,7 +16,6 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts, addToCart } from '@/store/apps/influencer/influencerSlice';
 import { IconCheck, IconMinus, IconPlus } from '@tabler/icons-react';
 import AlertCart from '../productCart/AlertCart';
 
@@ -29,7 +28,6 @@ const ProductDetail = () => {
 
   // Get Product
   useEffect(() => {
-    dispatch(fetchProducts());
   }, [dispatch]);
 
   // Get Products
@@ -164,7 +162,6 @@ const ProductDetail = () => {
                 component={Link}
                 variant="contained"
                 href="/apps/eco-checkout"
-                onClick={() => dispatch(addToCart(product))}
               >
                 Buy Now
               </Button>

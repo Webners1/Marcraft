@@ -21,7 +21,6 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { visuallyHidden } from '@mui/utils';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts } from '@/store/apps/influencer/influencerSlice';
 import CustomCheckbox from '../../../forms/theme-elements/CustomCheckbox';
 import CustomSwitch from '../../../forms/theme-elements/CustomSwitch';
 import { IconDotsVertical, IconFilter, IconSearch, IconTrash } from '@tabler/icons-react';
@@ -201,7 +200,6 @@ const ProductTableList = () => {
 
   //Fetch Products
   React.useEffect(() => {
-    dispatch(fetchProducts());
   }, [dispatch]);
 
   const getProducts = useSelector((state) => state.ecommerceReducer.products);
